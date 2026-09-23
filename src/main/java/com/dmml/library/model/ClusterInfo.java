@@ -7,6 +7,7 @@ public class ClusterInfo {
     private int clusterId;
     private String clusterName;
     private List<String> topKeywords = new ArrayList<>();
+    private String displayKeywords;
     private int documentCount;
     private double avgSilhouette;
     private List<Document> documents = new ArrayList<>();
@@ -41,6 +42,14 @@ public class ClusterInfo {
 
     public void setTopKeywords(List<String> topKeywords) {
         this.topKeywords = topKeywords;
+    }
+
+    public String getDisplayKeywords() {
+        return displayKeywords;
+    }
+
+    public void setDisplayKeywords(String displayKeywords) {
+        this.displayKeywords = displayKeywords;
     }
 
     public int getDocumentCount() {

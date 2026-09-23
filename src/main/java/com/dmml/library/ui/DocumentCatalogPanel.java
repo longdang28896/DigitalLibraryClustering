@@ -61,9 +61,9 @@ public class DocumentCatalogPanel extends JPanel {
     private void initUI() {
         // --- LEFT PANEL: Clusters Explorer ---
         JPanel leftPanel = new JPanel(new BorderLayout(6, 6));
-        leftPanel.setPreferredSize(new Dimension(290, 0));
+        leftPanel.setPreferredSize(new Dimension(330, 0));
         leftPanel.setBorder(new CompoundBorder(
-                BorderFactory.createTitledBorder(" Cụm Chủ Đề (Clusters) "),
+                BorderFactory.createTitledBorder(" Cụm Chủ Đề Học Thuật "),
                 new EmptyBorder(6, 6, 6, 6)
         ));
 
@@ -80,7 +80,51 @@ public class DocumentCatalogPanel extends JPanel {
             }
         });
 
+        // Double-click to rename cluster or right-click to select
+        clusterList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    promptRenameCurrentCluster();
+                } else if (SwingUtilities.isRightMouseButton(e)) {
+                    int idx = clusterList.locationToIndex(e.getPoint());
+                    if (idx >= 0) {
+                        clusterList.setSelectedIndex(idx);
+                    }
+                }
+            }
+        });
+
+        // Context popup menu for cluster list
+        JPopupMenu clusterPopup = new JPopupMenu();
+        JMenuItem itemRename = new JMenuItem("✏️ Đổi Tên Cụm Này...");
+        itemRename.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        itemRename.addActionListener(e -> promptRenameCurrentCluster());
+        JMenuItem itemReset = new JMenuItem("🔄 Khôi Phục Tên Mặc Định");
+        itemReset.addActionListener(e -> resetCurrentClusterName());
+        clusterPopup.add(itemRename);
+        clusterPopup.add(itemReset);
+        clusterList.setComponentPopupMenu(clusterPopup);
+
         leftPanel.add(new JScrollPane(clusterList), BorderLayout.CENTER);
+
+        // Bottom cluster action bar
+        JPanel clusterActionPanel = new JPanel(new GridLayout(1, 2, 6, 0));
+        JButton btnRenameCls = new JButton("✏️ Đổi Tên Cụm");
+        btnRenameCls.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        btnRenameCls.putClientProperty(FlatClientProperties.STYLE, "arc: 8");
+        btnRenameCls.setToolTipText("Nhấp chuột phải hoặc bấm nút này để đổi tên cụm chuyên đề tùy ý");
+        btnRenameCls.addActionListener(e -> promptRenameCurrentCluster());
+
+        JButton btnResetCls = new JButton("🔄 Khôi Phục");
+        btnResetCls.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        btnResetCls.putClientProperty(FlatClientProperties.STYLE, "arc: 8");
+        btnResetCls.setToolTipText("Khôi phục tên chuyên ngành học thuật mặc định");
+        btnResetCls.addActionListener(e -> resetCurrentClusterName());
+
+        clusterActionPanel.add(btnRenameCls);
+        clusterActionPanel.add(btnResetCls);
+        leftPanel.add(clusterActionPanel, BorderLayout.SOUTH);
 
         // --- CENTER PANEL: Search, Table, and Actions ---
         JPanel centerPanel = new JPanel(new BorderLayout(10, 10));
@@ -295,21 +339,24 @@ public class DocumentCatalogPanel extends JPanel {
 
         // Split Pane
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, centerPanel);
-        splitPane.setDividerLocation(290);
+        splitPane.setDividerLocation(330);
         splitPane.setContinuousLayout(true);
         add(splitPane, BorderLayout.CENTER);
     }
 
     public void refreshData() {
         clusterListModel.clear();
-        clusterListModel.addElement(new ClusterItem(null, "Tất Cả Tài Liệu", repository.count(), ""));
+        clusterListModel.addElement(new ClusterItem(null, "📚 Tất Cả Tài Liệu", repository.count(), "Toàn bộ kho dữ liệu thư viện số"));
 
         ClusteringResult result = clusteringService.getLatestResult();
         if (result != null && result.getClusters() != null) {
             for (ClusterInfo c : result.getClusters()) {
-                String kws = (c.getTopKeywords() != null && !c.getTopKeywords().isEmpty())
-                        ? String.join(", ", c.getTopKeywords().subList(0, Math.min(3, c.getTopKeywords().size())))
-                        : "";
+                String kws = c.getDisplayKeywords();
+                if (kws == null || kws.isEmpty()) {
+                    kws = (c.getTopKeywords() != null && !c.getTopKeywords().isEmpty())
+                            ? String.join(", ", c.getTopKeywords().subList(0, Math.min(4, c.getTopKeywords().size())))
+                            : "";
+                }
                 clusterListModel.addElement(new ClusterItem(c.getClusterId(), c.getClusterName(), c.getDocumentCount(), kws));
             }
         }
@@ -337,9 +384,9 @@ public class DocumentCatalogPanel extends JPanel {
         int enCount = 0;
 
         for (Document doc : docs) {
-            String clusterStr = doc.getClusterId() >= 0 ? ("Cụm #" + (doc.getClusterId() + 1)) : "Chưa phân cụm";
+            String clusterStr = clusteringService.getClusterDisplayName(doc.getClusterId());
             if (doc.isManuallyAssigned()) {
-                clusterStr += " [Sửa thủ công]";
+                clusterStr += " [Sửa]";
             }
 
             String lang = doc.getLanguage() != null ? doc.getLanguage().toUpperCase() : "EN";
@@ -437,6 +484,58 @@ public class DocumentCatalogPanel extends JPanel {
         }
     }
 
+    private void promptRenameCurrentCluster() {
+        ClusterItem selected = clusterList.getSelectedValue();
+        if (selected == null || selected.clusterId == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một cụm chuyên đề để đổi tên (không áp dụng cho 'Tất Cả Tài Liệu')!", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        JPanel panel = new JPanel(new GridLayout(4, 1, 4, 6));
+        panel.setPreferredSize(new Dimension(380, 110));
+        JLabel lblTitle = new JLabel("Nhập tên mới cho Cụm #" + (selected.clusterId + 1) + ":");
+        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        JTextField txtNewName = new JTextField(selected.name, 28);
+        txtNewName.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+
+        JLabel lblKws = new JLabel("Từ khóa mô tả đặc trưng (tùy chọn):");
+        lblKws.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        JTextField txtNewKws = new JTextField(selected.keywords, 28);
+        txtNewKws.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+
+        panel.add(lblTitle);
+        panel.add(txtNewName);
+        panel.add(lblKws);
+        panel.add(txtNewKws);
+
+        int result = JOptionPane.showConfirmDialog(this, panel, "✏️ Đổi Tên Cụm Chuyên Đề #" + (selected.clusterId + 1),
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            String newName = txtNewName.getText().trim();
+            String newKws = txtNewKws.getText().trim();
+            if (!newName.isEmpty()) {
+                clusteringService.renameCluster(selected.clusterId, newName, newKws);
+                refreshData();
+                JOptionPane.showMessageDialog(this, "Đã cập nhật tên cụm thành công!", "Thành Công", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+
+    private void resetCurrentClusterName() {
+        ClusterItem selected = clusterList.getSelectedValue();
+        if (selected == null || selected.clusterId == null) {
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Bạn có muốn khôi phục tên mặc định chuẩn học thuật cho Cụm #" + (selected.clusterId + 1) + "?",
+                "Xác Nhận Khôi Phục", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirm == JOptionPane.YES_OPTION) {
+            clusteringService.resetClusterName(selected.clusterId);
+            refreshData();
+        }
+    }
+
     // --- INNER CLASSES FOR RENDERERS ---
     public static class ClusterItem {
         final Integer clusterId;
@@ -457,9 +556,13 @@ public class DocumentCatalogPanel extends JPanel {
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof ClusterItem item) {
-                String sub = !item.keywords.isEmpty() ? "<br/><span style='font-size:10px; color:#64748b;'>&nbsp;&nbsp;Từ khóa: " + item.keywords + "</span>" : "";
-                String title = item.name + " <b style='color:#2563eb;'>(" + item.count + ")</b>";
-                lbl.setText("<html><div style='padding:4px 6px;'>" + title + sub + "</div></html>");
+                String countBadge = "<span style='font-weight:bold; color:" + (isSelected ? "#ffffff" : "#2563eb") + ";'> (" + item.count + ")</span>";
+                String subColor = isSelected ? "#e2e8f0" : "#64748b";
+                String sub = !item.keywords.isEmpty()
+                        ? "<div style='font-size:10.5px; color:" + subColor + "; margin-top:2px; line-height:1.25;'><i>Từ khóa: " + item.keywords + "</i></div>"
+                        : "";
+                String title = "<div style='font-size:12px; font-weight:600;'>" + item.name + countBadge + "</div>";
+                lbl.setText("<html><div style='padding:5px 7px;'>" + title + sub + "</div></html>");
             }
             return lbl;
         }

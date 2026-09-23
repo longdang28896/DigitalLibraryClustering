@@ -85,12 +85,12 @@ public class DocumentDetailDialog extends JDialog {
         JLabel lblAuthor = new JLabel("Tác giả: " + (doc.getAuthor() != null ? doc.getAuthor() : "Không rõ"));
         lblAuthor.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 
-        String clusterName = (doc.getClusterId() >= 0 ? "Cụm #" + (doc.getClusterId() + 1) : "Chưa phân cụm");
+        String clusterName = com.dmml.library.service.ClusteringService.getInstance().getClusterDisplayName(doc.getClusterId());
         if (doc.isManuallyAssigned()) {
             clusterName += " [Đã sửa thủ công]";
         }
-        lblTopic = new JLabel("Cụm chủ đề: " + clusterName + " - " + (doc.getTopic() != null ? doc.getTopic() : ""));
-        lblTopic.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblTopic = new JLabel("Cụm chủ đề: " + clusterName);
+        lblTopic.setFont(new Font("Segoe UI", Font.BOLD, 12));
         lblTopic.setForeground(new Color(16, 185, 129));
 
         JLabel lblId = new JLabel("Mã ID hệ thống: #" + doc.getId());

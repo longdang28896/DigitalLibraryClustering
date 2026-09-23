@@ -39,6 +39,126 @@ public class ClusteringService {
     private double[][] cachedVectors;
     private List<Document> cachedDocs = new ArrayList<>();
     private final Map<Integer, double[]> docVectorMap = new HashMap<>();
+    private final Map<Integer, String> customClusterNames = new java.util.concurrent.ConcurrentHashMap<>();
+    private final Map<Integer, String> customClusterKeywords = new java.util.concurrent.ConcurrentHashMap<>();
+
+    public static class TopicMeta {
+        public final String name;
+        public final String keywords;
+
+        public TopicMeta(String name, String keywords) {
+            this.name = name;
+            this.keywords = keywords;
+        }
+    }
+
+    public TopicMeta resolveAcademicTopic(int clusterId, List<String> topWords) {
+        if (clusterId == -1) {
+            return new TopicMeta("⚠️ Nhiễu / Ngoại lai (Outlier)", "Các tài liệu dị biệt");
+        }
+        if (customClusterNames.containsKey(clusterId)) {
+            String customName = customClusterNames.get(clusterId);
+            String customKw = customClusterKeywords.getOrDefault(clusterId, "");
+            return new TopicMeta(customName, customKw);
+        }
+
+        int displayNum = clusterId + 1;
+        String allTokens = (topWords != null ? String.join(" ", topWords).toLowerCase() : "");
+
+        if (allTokens.contains("encrypt") || allTokens.contains("crypt") || allTokens.contains("clipper") || allTokens.contains("kei") || allTokens.contains("chip") || allTokens.contains("escrow")) {
+            return new TopicMeta(
+                "🔐 Cụm #" + displayNum + ": An Ninh Mạng & Mật Mã Học",
+                "Mã hóa (Encryption), Khóa bảo mật (Keys), Clipper chip, An toàn thông tin"
+            );
+        } else if (allTokens.contains("space") || allTokens.contains("nasa") || allTokens.contains("orbit") || allTokens.contains("satellit") || allTokens.contains("launch") || allTokens.contains("astronomi")) {
+            return new TopicMeta(
+                "🚀 Cụm #" + displayNum + ": Khoa Học Vũ Trụ & Thiên Văn",
+                "Thám hiểm không gian (Space), Quỹ đạo vệ tinh (Orbit), Trạm NASA, Tàu vũ trụ"
+            );
+        } else if (allTokens.contains("graphic") || allTokens.contains("imag") || allTokens.contains("polygon") || allTokens.contains("render") || allTokens.contains("shading") || allTokens.contains("3d")) {
+            return new TopicMeta(
+                "🎨 Cụm #" + displayNum + ": Đồ Họa Máy Tính & Thị Giác Số",
+                "Đồ họa (Graphics), Xử lý hình ảnh (Image), Dựng hình 3D, Lưới đa giác (Polygon)"
+            );
+        } else if (allTokens.contains("israel") || allTokens.contains("armenian") || allTokens.contains("arab") || allTokens.contains("jew") || allTokens.contains("peac") || allTokens.contains("polici") || allTokens.contains("turkish")) {
+            return new TopicMeta(
+                "🌐 Cụm #" + displayNum + ": Chính Sách Ngoại Giao & Quan Hệ Quốc Tế",
+                "Ngoại giao hòa bình (Peace), Hiệp ước quốc tế, Chính sách chính phủ, Nhân quyền"
+            );
+        } else if (allTokens.contains("basebal") || allTokens.contains("player") || allTokens.contains("game") || allTokens.contains("season") || allTokens.contains("team") || allTokens.contains("pitch")) {
+            return new TopicMeta(
+                "⚾ Cụm #" + displayNum + ": Khoa Học Thể Thao & Vận Động",
+                "Giải đấu bóng chày (Baseball), Cầu thủ (Players), Trận đấu (Game), Mùa giải (Season)"
+            );
+        } else if (allTokens.contains("pitt") || allTokens.contains("bank") || allTokens.contains("gordon") || allTokens.contains("geb") || allTokens.contains("medic") || allTokens.contains("patient") || allTokens.contains("diseas") || allTokens.contains("doctor") || allTokens.contains("skeptic")) {
+            return new TopicMeta(
+                "🩺 Cụm #" + displayNum + ": Y Học Lâm Sàng & Dược Phẩm",
+                "Điều trị y khoa (Treatment), Bệnh nhân (Patients), Dược lý kháng sinh, Bệnh học (Disease)"
+            );
+        } else {
+            List<String> cleanWords = new ArrayList<>();
+            if (topWords != null) {
+                Set<String> noise = Set.of("edu", "com", "apr", "year", "don", "just", "article", "writes", "bank", "pitt", "gordon");
+                for (String w : topWords) {
+                    if (!noise.contains(w.toLowerCase())) {
+                        cleanWords.add(w);
+                    }
+                }
+            }
+            String kwStr = cleanWords.isEmpty() ? (topWords != null ? String.join(", ", topWords) : "") : String.join(", ", cleanWords);
+            return new TopicMeta(
+                "📚 Cụm #" + displayNum + ": Chuyên Đề Học Thuật #" + displayNum,
+                "Từ khóa: " + kwStr
+            );
+        }
+    }
+
+    public synchronized void renameCluster(int clusterId, String newName, String newKeywords) {
+        if (newName != null && !newName.trim().isEmpty()) {
+            customClusterNames.put(clusterId, newName.trim());
+        }
+        if (newKeywords != null) {
+            customClusterKeywords.put(clusterId, newKeywords.trim());
+        }
+        if (latestResult != null && latestResult.getClusters() != null) {
+            for (ClusterInfo c : latestResult.getClusters()) {
+                if (c.getClusterId() == clusterId) {
+                    if (newName != null && !newName.trim().isEmpty()) {
+                        c.setClusterName(newName.trim());
+                    }
+                    if (newKeywords != null) {
+                        c.setDisplayKeywords(newKeywords.trim());
+                    }
+                }
+            }
+        }
+    }
+
+    public synchronized void resetClusterName(int clusterId) {
+        customClusterNames.remove(clusterId);
+        customClusterKeywords.remove(clusterId);
+        if (latestResult != null && latestResult.getClusters() != null) {
+            for (ClusterInfo c : latestResult.getClusters()) {
+                if (c.getClusterId() == clusterId) {
+                    TopicMeta meta = resolveAcademicTopic(clusterId, c.getTopKeywords());
+                    c.setClusterName(meta.name);
+                    c.setDisplayKeywords(meta.keywords);
+                }
+            }
+        }
+    }
+
+    public String getClusterDisplayName(int clusterId) {
+        if (clusterId < 0) return "Chưa phân cụm";
+        if (latestResult != null && latestResult.getClusters() != null) {
+            for (ClusterInfo c : latestResult.getClusters()) {
+                if (c.getClusterId() == clusterId) {
+                    return c.getClusterName();
+                }
+            }
+        }
+        return "Cụm #" + (clusterId + 1);
+    }
 
     private ClusteringService() {
         this.documentRepository = DocumentRepository.getInstance();
@@ -151,10 +271,9 @@ public class ClusteringService {
             }
             cInfo.setTopKeywords(topWords);
 
-            if (!topWords.isEmpty() && cId >= 0) {
-                String desc = topWords.stream().limit(3).collect(Collectors.joining(" • "));
-                cInfo.setClusterName("Cụm #" + (cId + 1) + ": [" + desc.toUpperCase() + "]");
-            }
+            TopicMeta meta = resolveAcademicTopic(cId, topWords);
+            cInfo.setClusterName(meta.name);
+            cInfo.setDisplayKeywords(meta.keywords);
 
             clusterInfos.add(cInfo);
         }

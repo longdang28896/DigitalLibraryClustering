@@ -243,6 +243,16 @@ public class DigitalLibraryTests {
     }
 
     @Test
+    public void testClusterRenamingAndReset() {
+        com.dmml.library.service.ClusteringService service = com.dmml.library.service.ClusteringService.getInstance();
+        service.renameCluster(0, "🔐 Tên Tùy Chỉnh: An Ninh Nâng Cao", "Bảo mật mạng, Khóa mật mã");
+        assertEquals("🔐 Tên Tùy Chỉnh: An Ninh Nâng Cao", service.getClusterDisplayName(0));
+
+        service.resetClusterName(0);
+        assertTrue(service.getClusterDisplayName(0).contains("An Ninh Mạng & Mật Mã"));
+    }
+
+    @Test
     public void testPhysicalDocumentManager() {
         com.dmml.library.model.Document docPdf = new com.dmml.library.model.Document();
         docPdf.setId(8881);
