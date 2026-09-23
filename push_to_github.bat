@@ -1,49 +1,38 @@
 @echo off
 chcp 65001 >nul
-set PATH=%PATH%;C:\Users\NLSync\AppData\Local\Programs\Git\cmd
+set PATH=C:\Users\NLSync\AppData\Local\Programs\Git\cmd;C:\Users\NLSync\AppData\Local\Programs\Git\mingw64\bin;%PATH%
+cd /d "%~dp0"
+
 echo ====================================================================
 echo             CÔNG CỤ ĐẨY DỰ ÁN LÊN GITHUB (ĐỀ TÀI 2508)
 echo ====================================================================
 echo.
-
-git --version >nul 2>&1
-if errorlevel 1 (
-    echo [LỖI] Không tìm thấy Git trên máy!
-    pause
-    exit /b
-)
-
-echo Dự án hiện đã sẵn sàng đẩy lên GitHub.
-echo Vui lòng dán (Paste) đường link GitHub Repository của bạn vào bên dưới.
-echo Ví dụ: https://github.com/ten-tai-khoan/DigitalLibraryClustering.git
+echo Repo GitHub của bạn:
+echo https://github.com/longdang28896/DigitalLibraryClustering.git
 echo.
-set /p REPO_URL="Link GitHub Repository: "
-
-if "%REPO_URL%"=="" (
-    echo.
-    echo [THÔNG BÁO] Bạn chưa nhập link GitHub. Vui lòng chạy lại khi có link!
-    pause
-    exit /b
-)
-
+echo Đang tiến hành đẩy toàn bộ mã nguồn lên nhánh main...
 echo.
-echo [*] Đang thiết lập remote origin: %REPO_URL%
+
 git remote remove origin 2>nul
-git remote add origin %REPO_URL%
+git remote add origin https://github.com/longdang28896/DigitalLibraryClustering.git
 git branch -M main
-
-echo [*] Đang đẩy toàn bộ mã nguồn lên GitHub...
 git push -u origin main
 
 if errorlevel 1 (
     echo.
-    echo [!] Quá trình đẩy gặp trục trặc (có thể do chưa đăng nhập hoặc link chưa đúng).
-    echo [!] Nếu hiện cửa sổ đăng nhập GitHub trên trình duyệt, bạn hãy bấm "Sign in with your browser".
+    echo ====================================================================
+    echo [LƯU Ý]: Nếu đây là lần đầu tiên bạn đẩy code lên GitHub từ máy này:
+    echo 1. Trình duyệt hoặc cửa sổ Git sẽ hiện lên yêu cầu xác thực.
+    echo 2. Bạn chỉ cần chọn "Sign in with your browser" và bấm Authorize.
+    echo 3. Sau khi đăng nhập thành công, code sẽ tự động được tải lên GitHub!
+    echo ====================================================================
 ) else (
     echo.
     echo ====================================================================
-    echo [THÀNH CÔNG] Toàn bộ dự án đã được đẩy lên GitHub thành công!
+    echo [THÀNH CÔNG] Dự án đã được đẩy lên GitHub thành công 100%!
+    echo Xem tại: https://github.com/longdang28896/DigitalLibraryClustering
     echo ====================================================================
 )
+
 echo.
 pause
