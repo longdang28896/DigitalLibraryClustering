@@ -33,6 +33,11 @@ import java.util.List;
  */
 public class DocumentCatalogPanel extends JPanel {
 
+    private static final Color TEXT_PRIMARY = new Color(51, 65, 85);
+    private static final Color TEXT_SECONDARY = new Color(100, 116, 139);
+    private static final Color BORDER_COLOR = new Color(226, 232, 240);
+    private static final Color SURFACE_MUTED = new Color(248, 250, 252);
+
     private final DocumentRepository repository;
     private final ClusteringService clusteringService;
     private final MainLibraryFrame mainFrame;
@@ -52,27 +57,27 @@ public class DocumentCatalogPanel extends JPanel {
         this.repository = DocumentRepository.getInstance();
         this.clusteringService = ClusteringService.getInstance();
 
-        setLayout(new BorderLayout(12, 12));
-        setBorder(new EmptyBorder(12, 14, 12, 14));
+        setLayout(new BorderLayout());
+        setBorder(new EmptyBorder(10, 12, 10, 12));
 
         initUI();
         refreshData();
     }
 
     private void initUI() {
-        // --- LEFT PANEL: Clusters Explorer (Fixed layout, 295px rộng rãi hiển thị trọn vẹn) ---
+        // --- LEFT PANEL: compact topic explorer ---
         JPanel leftPanel = new JPanel(new BorderLayout(6, 6));
-        leftPanel.setPreferredSize(new Dimension(295, 0));
-        leftPanel.setMinimumSize(new Dimension(295, 0));
+        leftPanel.setPreferredSize(new Dimension(335, 0));
+        leftPanel.setMinimumSize(new Dimension(335, 0));
         leftPanel.setBackground(Color.WHITE);
         leftPanel.setBorder(new CompoundBorder(
                 BorderFactory.createTitledBorder(
-                        BorderFactory.createLineBorder(new Color(226, 232, 240), 1),
+                        BorderFactory.createLineBorder(BORDER_COLOR, 1),
                         " Danh Mục Chủ Đề ",
                         TitledBorder.LEFT,
                         TitledBorder.TOP,
                         new Font("Segoe UI", Font.BOLD, 12),
-                        new Color(30, 58, 138)
+                        new Color(59, 79, 118)
                 ),
                 new EmptyBorder(4, 4, 4, 4)
         ));
@@ -81,6 +86,7 @@ public class DocumentCatalogPanel extends JPanel {
         clusterList = new JList<>(clusterListModel);
         clusterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         clusterList.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        clusterList.setFixedCellHeight(64);
         clusterList.setBackground(Color.WHITE);
         clusterList.setCellRenderer(new ClusterListCellRenderer());
         clusterList.addListSelectionListener(e -> {
@@ -103,48 +109,42 @@ public class DocumentCatalogPanel extends JPanel {
 
         JScrollPane clusterScrollPane = new JScrollPane(clusterList);
         clusterScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        clusterScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         clusterScrollPane.setBorder(BorderFactory.createEmptyBorder());
         clusterScrollPane.getViewport().setBackground(Color.WHITE);
         leftPanel.add(clusterScrollPane, BorderLayout.CENTER);
 
         // --- CENTER PANEL: Search, Table, and Actions ---
-        JPanel centerPanel = new JPanel(new BorderLayout(10, 10));
+        JPanel centerPanel = new JPanel(new BorderLayout(8, 8));
+        centerPanel.setMinimumSize(new Dimension(620, 0));
 
         // 1. Search & Filter Bar
-        JPanel searchBar = new JPanel(new BorderLayout(8, 0));
+        JPanel searchBar = new JPanel(new GridBagLayout());
         searchBar.setBorder(new CompoundBorder(
-                new LineBorder(new Color(226, 232, 240), 1, true),
-                new EmptyBorder(8, 12, 8, 12)
+                new LineBorder(BORDER_COLOR, 1, true),
+                new EmptyBorder(7, 10, 7, 10)
         ));
-        searchBar.setBackground(new Color(248, 250, 252));
-
-        JPanel searchInputs = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        searchInputs.setOpaque(false);
+        searchBar.setBackground(SURFACE_MUTED);
 
         JLabel lblSearch = new JLabel("Tìm kiếm:");
         lblSearch.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        lblSearch.setForeground(TEXT_PRIMARY);
 
-        txtSearch = new JTextField(22);
+        txtSearch = new JTextField();
         txtSearch.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        txtSearch.setMinimumSize(new Dimension(130, 28));
         txtSearch.putClientProperty(FlatClientProperties.STYLE, "arc: 8; margin: 4,8,4,8");
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập tiêu đề, tác giả, tóm tắt...");
         txtSearch.addActionListener(e -> filterTable());
 
         JLabel lblLang = new JLabel("Ngôn ngữ:");
         lblLang.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        lblLang.setForeground(TEXT_PRIMARY);
 
         comboLangFilter = new JComboBox<>(new String[]{"Tất Cả", "Tiếng Việt (VI)", "Tiếng Anh (EN)"});
         comboLangFilter.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         comboLangFilter.putClientProperty(FlatClientProperties.STYLE, "arc: 8");
         comboLangFilter.addActionListener(e -> filterTable());
-
-        searchInputs.add(lblSearch);
-        searchInputs.add(txtSearch);
-        searchInputs.add(lblLang);
-        searchInputs.add(comboLangFilter);
-
-        JPanel searchButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 0));
-        searchButtons.setOpaque(false);
 
         JButton btnSearch = new JButton("Tìm Kiếm");
         btnSearch.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -164,11 +164,32 @@ public class DocumentCatalogPanel extends JPanel {
             filterTable();
         });
 
-        searchButtons.add(btnSearch);
-        searchButtons.add(btnReset);
+        GridBagConstraints searchGbc = new GridBagConstraints();
+        searchGbc.gridy = 0;
+        searchGbc.anchor = GridBagConstraints.CENTER;
+        searchGbc.insets = new Insets(0, 0, 0, 8);
+        searchBar.add(lblSearch, searchGbc);
 
-        searchBar.add(searchInputs, BorderLayout.CENTER);
-        searchBar.add(searchButtons, BorderLayout.EAST);
+        searchGbc.gridx = 1;
+        searchGbc.weightx = 1.0;
+        searchGbc.fill = GridBagConstraints.HORIZONTAL;
+        searchBar.add(txtSearch, searchGbc);
+
+        searchGbc.gridx = 2;
+        searchGbc.weightx = 0;
+        searchGbc.fill = GridBagConstraints.NONE;
+        searchBar.add(lblLang, searchGbc);
+
+        searchGbc.gridx = 3;
+        searchBar.add(comboLangFilter, searchGbc);
+
+        searchGbc.gridx = 4;
+        searchGbc.insets = new Insets(0, 2, 0, 6);
+        searchBar.add(btnSearch, searchGbc);
+
+        searchGbc.gridx = 5;
+        searchGbc.insets = new Insets(0, 0, 0, 0);
+        searchBar.add(btnReset, searchGbc);
         centerPanel.add(searchBar, BorderLayout.NORTH);
 
         // 2. Table
@@ -181,25 +202,35 @@ public class DocumentCatalogPanel extends JPanel {
         };
 
         docTable = new JTable(tableModel);
-        docTable.setRowHeight(28);
+        docTable.setRowHeight(26);
         docTable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         docTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        docTable.setForeground(TEXT_PRIMARY);
+        docTable.setSelectionBackground(new Color(219, 234, 254));
+        docTable.setSelectionForeground(new Color(30, 64, 175));
+        docTable.getTableHeader().setBackground(new Color(241, 245, 249));
+        docTable.getTableHeader().setForeground(new Color(59, 79, 118));
+        docTable.getTableHeader().setReorderingAllowed(false);
         docTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        docTable.setShowGrid(true);
-        docTable.setGridColor(new Color(241, 245, 249));
+        docTable.setShowVerticalLines(true);
+        docTable.setShowHorizontalLines(true);
+        docTable.setGridColor(new Color(232, 238, 245));
+        docTable.setFillsViewportHeight(true);
         docTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-        docTable.getColumnModel().getColumn(0).setPreferredWidth(45);
-        docTable.getColumnModel().getColumn(1).setPreferredWidth(340);
-        docTable.getColumnModel().getColumn(2).setPreferredWidth(140);
-        docTable.getColumnModel().getColumn(3).setPreferredWidth(160);
-        docTable.getColumnModel().getColumn(4).setPreferredWidth(85);
-        docTable.getColumnModel().getColumn(5).setPreferredWidth(75);
+        configureColumn(0, 48, 42);
+        configureColumn(1, 330, 210);
+        configureColumn(2, 150, 105);
+        configureColumn(3, 170, 115);
+        configureColumn(4, 100, 92);
+        configureColumn(5, 82, 70);
 
         // Renderers
         DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
         centerRender.setHorizontalAlignment(JLabel.CENTER);
         docTable.getColumnModel().getColumn(0).setCellRenderer(centerRender);
+        docTable.getColumnModel().getColumn(1).setCellRenderer(new DocumentCellRenderer());
+        docTable.getColumnModel().getColumn(2).setCellRenderer(new DocumentCellRenderer());
         docTable.getColumnModel().getColumn(4).setCellRenderer(new LanguageCellRenderer());
         docTable.getColumnModel().getColumn(5).setCellRenderer(new FormatCellRenderer());
         docTable.getColumnModel().getColumn(3).setCellRenderer(new ClusterCellRenderer());
@@ -246,13 +277,18 @@ public class DocumentCatalogPanel extends JPanel {
             }
         });
 
-        centerPanel.add(new JScrollPane(docTable), BorderLayout.CENTER);
+        JScrollPane documentScrollPane = new JScrollPane(docTable);
+        documentScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        documentScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        documentScrollPane.setBorder(new LineBorder(BORDER_COLOR, 1));
+        documentScrollPane.getViewport().setBackground(Color.WHITE);
+        centerPanel.add(documentScrollPane, BorderLayout.CENTER);
 
         // 3. Bottom Toolbar (2 SEPARATE ROWS TO PREVENT OVERLAPPING COMPLETELY)
         JPanel bottomToolbar = new JPanel();
         bottomToolbar.setLayout(new BoxLayout(bottomToolbar, BoxLayout.Y_AXIS));
 
-        // Row 1: Action Buttons (Right aligned, gọn gàng đủ hiển thị tất cả nút)
+        // Row 1: action buttons remain on a dedicated line.
         JPanel actionRow = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 3));
 
         JButton btnView = new JButton("Xem Chi Tiết");
@@ -307,21 +343,40 @@ public class DocumentCatalogPanel extends JPanel {
         // Row 2: Status Bar (Full width, placed on its own line below buttons - CAN NEVER OVERLAP)
         JPanel statusRow = new JPanel(new BorderLayout());
         statusRow.setBorder(new CompoundBorder(
-                new MatteBorder(1, 0, 0, 0, new Color(226, 232, 240)),
+                new MatteBorder(1, 0, 0, 0, BORDER_COLOR),
                 new EmptyBorder(5, 6, 2, 6)
         ));
         lblStatus = new JLabel("Hiển thị 0 tài liệu");
         lblStatus.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lblStatus.setForeground(new Color(100, 116, 139));
+        lblStatus.setForeground(TEXT_SECONDARY);
         statusRow.add(lblStatus, BorderLayout.WEST);
 
         bottomToolbar.add(actionRow);
         bottomToolbar.add(statusRow);
         centerPanel.add(bottomToolbar, BorderLayout.SOUTH);
 
-        // Bố cục chuẩn cố định (Không dùng JSplitPane kéo dãn theo yêu cầu)
-        add(leftPanel, BorderLayout.WEST);
-        add(centerPanel, BorderLayout.CENTER);
+        // A two-column GridBag layout keeps both tables in separate bounds at every supported size.
+        JPanel contentPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints contentGbc = new GridBagConstraints();
+        contentGbc.gridy = 0;
+        contentGbc.weighty = 1.0;
+        contentGbc.fill = GridBagConstraints.BOTH;
+
+        contentGbc.gridx = 0;
+        contentGbc.weightx = 0;
+        contentGbc.insets = new Insets(0, 0, 0, 10);
+        contentPanel.add(leftPanel, contentGbc);
+
+        contentGbc.gridx = 1;
+        contentGbc.weightx = 1.0;
+        contentGbc.insets = new Insets(0, 0, 0, 0);
+        contentPanel.add(centerPanel, contentGbc);
+        add(contentPanel, BorderLayout.CENTER);
+    }
+
+    private void configureColumn(int index, int preferredWidth, int minimumWidth) {
+        docTable.getColumnModel().getColumn(index).setPreferredWidth(preferredWidth);
+        docTable.getColumnModel().getColumn(index).setMinWidth(minimumWidth);
     }
 
     public void refreshData() {
@@ -358,7 +413,6 @@ public class DocumentCatalogPanel extends JPanel {
         }
 
         List<Document> docs = repository.search(query, currentSelectedCluster, langCode);
-
         tableModel.setRowCount(0);
         int viCount = 0;
         int enCount = 0;
@@ -371,7 +425,6 @@ public class DocumentCatalogPanel extends JPanel {
 
             String lang = doc.getLanguage() != null ? doc.getLanguage().toUpperCase() : "EN";
             if ("VI".equals(lang)) viCount++; else enCount++;
-
             tableModel.addRow(new Object[]{
                     doc.getId(),
                     doc.getTitle(),
@@ -388,7 +441,8 @@ public class DocumentCatalogPanel extends JPanel {
             String clusterNote = (currentSelectedCluster != null)
                     ? " (Đang xem: " + clusteringService.getClusterDisplayName(currentSelectedCluster) + ")"
                     : " (Tất cả chủ đề)";
-            lblStatus.setText("Hiển thị: " + docs.size() + " / " + repository.count() + " tài liệu  •  Tiếng Việt: " + viCount + "  •  Tiếng Anh: " + enCount + "  •  " + clusterNote);
+            lblStatus.setText("Hiển thị: " + docs.size() + " / " + repository.count() + " tài liệu  •  Tiếng Việt: "
+                    + viCount + "  •  Tiếng Anh: " + enCount + "  •  " + clusterNote);
         }
     }
 
@@ -520,42 +574,67 @@ public class DocumentCatalogPanel extends JPanel {
     }
 
     private static class ClusterListCellRenderer extends DefaultListCellRenderer {
-        private static final Color SELECTED_BG = new Color(238, 242, 255); // Gentle soft blue tint
-        private static final Color SELECTED_BORDER = new Color(199, 210, 254);
+        private static final Color SELECTED_BG = new Color(239, 246, 255);
+        private static final Color SELECTED_BORDER = new Color(191, 219, 254);
 
         @Override
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            if (value instanceof ClusterItem item) {
-                // High-contrast, bright, glare-free colors (Tuyệt đối không dùng chữ trắng mờ gây phản sáng)
-                String titleColor = isSelected ? "#1e3a8a" : "#0f172a";
-                String countColor = isSelected ? "#2563eb" : "#2563eb";
-                String subColor = isSelected ? "#2563eb" : "#475569";
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                       boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (!(value instanceof ClusterItem item)) return label;
 
-                lbl.setOpaque(true);
-                if (isSelected) {
-                    lbl.setBackground(SELECTED_BG);
-                    lbl.setBorder(new CompoundBorder(
-                            new LineBorder(SELECTED_BORDER, 1, true),
-                            new EmptyBorder(5, 8, 5, 8)
-                    ));
-                } else {
-                    lbl.setBackground(Color.WHITE);
-                    lbl.setBorder(new EmptyBorder(6, 8, 6, 8));
-                }
+            String titleColor = isSelected ? "#315b9a" : "#334155";
+            String subColor = isSelected ? "#5272a3" : "#64748b";
+            String keywords = item.keywords == null ? "" : escapeHtml(item.keywords);
 
-                String countBadge = " <span style='font-size:11px; font-weight:bold; color:" + countColor + ";'>(" + item.count + ")</span>";
-                String sub = !item.keywords.isEmpty()
-                        ? "<div style='font-size:10.5px; color:" + subColor + "; margin-top:2px; line-height:1.25;'><i>" + item.keywords + "</i></div>"
-                        : "";
-                String title = "<div style='font-size:12px; font-weight:bold; color:" + titleColor + ";'>" + item.name + countBadge + "</div>";
+            label.setOpaque(true);
+            label.setBackground(isSelected ? SELECTED_BG : Color.WHITE);
+            label.setBorder(isSelected
+                    ? new CompoundBorder(new LineBorder(SELECTED_BORDER, 1, true), new EmptyBorder(5, 7, 5, 7))
+                    : new EmptyBorder(6, 8, 6, 8));
+            label.setText("<html><table width='300' cellpadding='0' cellspacing='0'>"
+                    + "<tr><td valign='top'><span style='font-size:11px;font-weight:bold;color:" + titleColor + ";'>"
+                    + formatTitle(item.name) + "</span></td>"
+                    + "<td width='42' align='right' valign='top'><span style='font-size:10px;font-weight:bold;color:#3b82f6;'>"
+                    + "(" + item.count + ")</span></td></tr>"
+                    + (!keywords.isEmpty()
+                    ? "<tr><td colspan='2'><span style='font-size:9.5px;font-style:italic;color:" + subColor + ";'>" + keywords + "</span></td></tr>"
+                    : "")
+                    + "</table></html>");
+            label.setToolTipText("<html><b>" + escapeHtml(item.name) + "</b> (" + item.count + " tài liệu)" +
+                    (!keywords.isEmpty() ? "<br/><i>Từ khóa: " + keywords + "</i>" : "") +
+                    (item.clusterId != null ? "<br/><span style='color:gray;'>Nhấp đúp chuột để đổi tên</span>" : "") + "</html>");
+            return label;
+        }
 
-                // Hiển thị đầy đủ trọn vẹn với width 265px
-                lbl.setText("<html><body style='width:265px;'><div style='padding:0px;'>" + title + sub + "</div></body></html>");
-                lbl.setToolTipText("<html><b>" + item.name + "</b> (" + item.count + " tài liệu)" +
-                        (!item.keywords.isEmpty() ? "<br/><i>Từ khóa: " + item.keywords + "</i>" : "") +
-                        (item.clusterId != null ? "<br/><span style='color:gray;'>Nhấp đúp chuột để đổi tên</span>" : "") + "</html>");
-            }
+        private static String formatTitle(String text) {
+            if (text == null) return "";
+            final int wrapAt = 31;
+            if (text.length() <= wrapAt) return escapeHtml(text);
+
+            int split = text.lastIndexOf(' ', wrapAt);
+            if (split < 20) split = text.indexOf(' ', wrapAt);
+            if (split < 0) return escapeHtml(text);
+            return escapeHtml(text.substring(0, split)) + "<br>"
+                    + escapeHtml(text.substring(split + 1));
+        }
+
+        private static String escapeHtml(String text) {
+            if (text == null) return "";
+            return text.replace("&", "&amp;")
+                    .replace("<", "&lt;")
+                    .replace(">", "&gt;")
+                    .replace("\"", "&quot;");
+        }
+    }
+
+    private static class DocumentCellRenderer extends DefaultTableCellRenderer {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+            JLabel lbl = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+            lbl.setBorder(new EmptyBorder(0, 7, 0, 7));
+            if (!isSelected) lbl.setForeground(TEXT_PRIMARY);
+            lbl.setToolTipText(value != null ? value.toString() : null);
             return lbl;
         }
     }
@@ -565,6 +644,7 @@ public class DocumentCatalogPanel extends JPanel {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
             JLabel lbl = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
             lbl.setHorizontalAlignment(CENTER);
+            lbl.setBorder(new EmptyBorder(0, 5, 0, 5));
             String val = value != null ? value.toString() : "EN";
             if ("VI".equalsIgnoreCase(val)) {
                 lbl.setText("[VI] Tiếng Việt");
@@ -582,6 +662,7 @@ public class DocumentCatalogPanel extends JPanel {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
             JLabel lbl = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
             lbl.setHorizontalAlignment(CENTER);
+            lbl.setBorder(new EmptyBorder(0, 5, 0, 5));
             String val = value != null ? value.toString().toUpperCase() : "TXT";
             lbl.setText(val);
             if (!isSelected) {
@@ -599,6 +680,8 @@ public class DocumentCatalogPanel extends JPanel {
             JLabel lbl = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
             String val = value != null ? value.toString() : "";
             lbl.setText(val);
+            lbl.setBorder(new EmptyBorder(0, 7, 0, 7));
+            lbl.setToolTipText(val);
             if (val.contains("[Sửa thủ công]") && !isSelected) {
                 lbl.setForeground(new Color(16, 185, 129));
                 lbl.setFont(lbl.getFont().deriveFont(Font.BOLD));

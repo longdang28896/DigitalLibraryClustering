@@ -28,7 +28,7 @@ public class MainLibraryFrame extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 840);
-        setMinimumSize(new Dimension(1020, 680));
+        setMinimumSize(new Dimension(1180, 680));
         setLocationRelativeTo(null);
 
         initMenuBar();
