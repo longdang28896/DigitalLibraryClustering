@@ -1,0 +1,29 @@
+======================================================================
+  HỆ THỐNG THƯ VIỆN SỐ - TÀI LIỆU LƯU TRỮ VẬT LÝ #1008
+======================================================================
+
+TIÊU ĐỀ: Mô Hình Mã Hóa Đường Cong Elliptic và Bảo Mật Điện Toán Đám Mây
+TÁC GIẢ: TS. Đỗ Hải Nam, Học Viện Kỹ Thuật Mật Mã
+CHỦ ĐỀ:  Mật Mã Học & An Toàn Thông Tin
+ĐỊNH DẠNG GỐC: TXT  |  NGÔN NGỮ: VI
+
+----------------------------------------------------------------------
+TÓM TẮT (ABSTRACT):
+Thiết kế giao thức xác thực không tiết lộ tri thức (Zero-Knowledge Proofs) dựa trên đường cong elliptic phục vụ lưu trữ đám mây an toàn.
+----------------------------------------------------------------------
+
+NỘI DUNG TOÀN VĂN:
+
+CÔNG TRÌNH NGHIÊN CỨU MẬT MÃ HỌC VÀ AN TOÀN DỮ LIỆU ĐÁM MÂY
+
+1. BÀI TOÁN AN TOÀN DỮ LIỆU TRÊN NỀN TẢNG CLOUD
+Khi các doanh nghiệp và cơ quan nhà nước chuyển dịch dữ liệu nhạy cảm lên hạ tầng điện toán đám mây công cộng, bài toán kiểm soát quyền truy cập và bảo vệ tính toàn vẹn dữ liệu trở nên sống còn. Các thuật toán khóa công khai cổ điển như RSA đòi hỏi chiều dài khóa lên tới 3072-bit để đạt mức an toàn hiện đại, gây lãng phí băng thông và năng lực tính toán của các thiết bị đầu cuối.
+
+2. HỆ MẬT MÃ ĐƯỜNG CONG ELLIPTIC (ECC)
+Chúng tôi thiết kế kiến trúc bảo mật dựa trên đường cong Weierstrass định nghĩa trên trường hữu hạn F_p (tiêu chuẩn Curve25519). Với chiều dài khóa chỉ 256-bit, hệ mật ECC mang lại độ bền mật mã tương đương khóa RSA 3072-bit, giúp tiết kiệm 85% chi phí tính toán chữ ký số và giảm kích thước bản tin trao đổi.
+
+3. GIAO THỨC CHỨNG THỰC BẢO VỆ DANH TÍNH (ZKP)
+Kết hợp sơ đồ chữ ký Schnorr trên đường cong elliptic với giao thức bằng chứng không tiết lộ tri thức (Zero-Knowledge Proofs), người dùng có thể chứng minh quyền truy xuất tài nguyên số trong thư viện mà không cần gửi mật khẩu hay khóa riêng lên máy chủ đám mây, loại trừ hoàn toàn nguy cơ bị nghe lén (Eavesdropping) hay tấn công trung gian (Man-in-the-Middle).
+
+4. KẾT QUẢ ĐÁNH GIÁ HIỆU NĂNG
+Thử nghiệm trên 100.000 yêu cầu xác thực đồng thời cho thấy độ trễ xử lý trung bình đạt 1.8 ms trên mỗi giao dịch, thông lượng đạt trên 12.000 TPS, đáp ứng hoàn hảo yêu cầu bảo mật cấp độ chính phủ và ngân hàng số.

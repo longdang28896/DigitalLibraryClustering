@@ -1,0 +1,12 @@
+======================================================================
+  HỆ THỐNG THƯ VIỆN SỐ - TÀI LIỆU LƯU TRỮ VẬT LÝ #1011
+======================================================================
+
+TIÊU ĐỀ: Bài Viết Thử Nghiệm Sửa Cụm
+TÁC GIẢ: Thư viện số
+CHỦ ĐỀ:  Khoa học
+ĐỊNH DẠNG GỐC: TEXT  |  NGÔN NGỮ: EN
+
+NỘI DUNG TOÀN VĂN:
+
+Nội dung tài liệu kiểm tra tính năng can thiệp sửa cụm khi thuật toán gán chưa đúng ý.

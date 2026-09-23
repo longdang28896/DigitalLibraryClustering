@@ -1,0 +1,107 @@
+{
+  "dataset": "20 Newsgroups (6 Categories)",
+  "totalDocuments": 900,
+  "vocabularySize": 1500,
+  "elbowAnalysis": [
+    {
+      "k": 2,
+      "inertia": 850.34,
+      "silhouette": 0.0143,
+      "daviesBouldin": 2.6374
+    },
+    {
+      "k": 3,
+      "inertia": 842.61,
+      "silhouette": 0.0164,
+      "daviesBouldin": 5.467
+    },
+    {
+      "k": 4,
+      "inertia": 835.04,
+      "silhouette": 0.0184,
+      "daviesBouldin": 5.5958
+    },
+    {
+      "k": 5,
+      "inertia": 830.77,
+      "silhouette": 0.0196,
+      "daviesBouldin": 7.6762
+    },
+    {
+      "k": 6,
+      "inertia": 823.24,
+      "silhouette": 0.022,
+      "daviesBouldin": 6.6637
+    },
+    {
+      "k": 7,
+      "inertia": 820.11,
+      "silhouette": 0.0229,
+      "daviesBouldin": 6.9506
+    },
+    {
+      "k": 8,
+      "inertia": 817.72,
+      "silhouette": 0.024,
+      "daviesBouldin": 7.2492
+    },
+    {
+      "k": 9,
+      "inertia": 812.24,
+      "silhouette": 0.0257,
+      "daviesBouldin": 6.2982
+    },
+    {
+      "k": 10,
+      "inertia": 809.61,
+      "silhouette": 0.0259,
+      "daviesBouldin": 6.9579
+    },
+    {
+      "k": 11,
+      "inertia": 808.07,
+      "silhouette": 0.0256,
+      "daviesBouldin": 6.7429
+    },
+    {
+      "k": 12,
+      "inertia": 804.33,
+      "silhouette": 0.0265,
+      "daviesBouldin": 6.6403
+    }
+  ],
+  "modelComparison": [
+    {
+      "algorithm": "K-Means",
+      "clustersFound": 6,
+      "silhouette": 0.022,
+      "daviesBouldin": 6.6637,
+      "purity": 0.5756,
+      "ari": 0.2531,
+      "nmi": 0.453,
+      "executionTimeMs": 68.55
+    },
+    {
+      "algorithm": "Hierarchical (Agglomerative)",
+      "clustersFound": 6,
+      "silhouette": 0.0196,
+      "daviesBouldin": 5.7938,
+      "purity": 0.5089,
+      "ari": 0.1478,
+      "nmi": 0.4354,
+      "executionTimeMs": 325.38
+    },
+    {
+      "algorithm": "DBSCAN",
+      "clustersFound": 16,
+      "silhouette": 0.0036,
+      "daviesBouldin": 2.9358,
+      "purity": 0.3322,
+      "ari": 0.0574,
+      "nmi": 0.1695,
+      "executionTimeMs": 8.75
+    }
+  ],
+  "bestModel": "K-Means",
+  "scientificConclusion": "K-Means đạt hệ số Silhouette và chỉ số ARI/NMI cao nhất, đồng thời tốc độ thực thi nhanh vượt trội. Do đó, K-Means được lựa chọn làm mô hình lõi tích hợp vào Hệ thống Thư viện số."
+}

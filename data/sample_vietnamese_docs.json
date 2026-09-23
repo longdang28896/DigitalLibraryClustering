@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1001,
+    "title": "Nghiên Cứu Ứng Dụng Mạng Nơ-ron Tích Chập (CNN) và Học Sâu trong Thị Giác Máy Tính",
+    "author": "TS. Nguyễn Văn An, ĐHQG Hà Nội",
+    "originalCategory": "Trí Tuệ Nhân Tạo",
+    "topic": "Trí Tuệ Nhân Tạo & Học Máy",
+    "summary": "Bài báo nghiên cứu kiến trúc CNN cải tiến áp dụng cho phân loại ảnh độ phân giải cao và phát hiện đối tượng thời gian thực trong điều kiện ánh sáng phức tạp.",
+    "content": "BÁO CÁO NGHIÊN CỨU KHOA HỌC: THỊ GIÁC MÁY TÍNH VÀ HỌC SÂU\n\n1. ĐẶT VẤN ĐỀ VÀ TỔNG QUAN NGHIÊN CỨU\nTrong những năm gần đây, thị giác máy tính và học sâu (deep learning) đã có những bước tiến vượt bậc nhờ vào sự phát triển của các mô hình mạng nơ-ron tích chập (Convolutional Neural Networks - CNN). Việc nhận diện và phân loại ảnh trong điều kiện môi trường thực tế gặp nhiều thách thức như ánh sáng thay đổi, vật thể bị che khuất và độ phân giải không đồng nhất. Nghiên cứu này tập trung phân tích các tầng tích chập (convolutional layers), hàm kích hoạt phi tuyến tính ReLU, lớp gộp (pooling), và cơ chế chú ý không gian (spatial attention mechanism) nhằm nâng cao độ chính xác nhận dạng hình ảnh.\n\n2. CƠ SỞ PHƯƠNG PHÁP VÀ KIẾN TRÚC MÔ HÌNH\nChúng tôi đề xuất kiến trúc mạng lai ghép kết hợp giữa Residual Blocks của ResNet và các khối trích xuất đặc trưng đa quy mô của Inception. Mô hình bao gồm 50 tầng tích chập sâu, sử dụng kỹ thuật chuẩn hóa theo lô (Batch Normalization) để ổn định gradient trong quá trình huấn luyện và giảm thiểu hiện tượng quá khớp (overfitting) thông qua kỹ thuật Dropout tỷ lệ 0.4 kết hợp tăng cường dữ liệu ảnh (data augmentation).\n\n3. THIẾT LẬP THỰC NGHIỆM VÀ KHO DỮ LIỆU\nTập dữ liệu thực nghiệm gồm 25.000 hình ảnh kỹ thuật số thuộc 10 lớp đối tượng khác nhau. Quá trình huấn luyện sử dụng thuật toán tối ưu hóa Adam với tốc độ học khởi tạo 0.001, kích thước lô (batch size) bằng 64, thực hiện qua 150 epoch trên cụm máy chủ trang bị card đồ họa GPU NVIDIA RTX.\n\n4. KẾT QUẢ VÀ ĐÁNH GIÁ\nKết quả thử nghiệm trên tập kiểm thử độc lập cho thấy mô hình đề xuất đạt độ chính xác Top-1 là 94.62% và Top-5 là 98.85%. Thời gian suy luận trung bình (inference latency) chỉ mất 14.2 mili-giây trên mỗi khung hình, đáp ứng tiêu chuẩn xử lý video thời gian thực (real-time video processing 60 FPS).\n\n5. KẾT LUẬN\nNghiên cứu khẳng định tiềm năng to lớn của mạng tích chập sâu trong việc tự động hóa giám sát an ninh, xe tự hành và chẩn đoán hình ảnh y tế số hóa.",
+    "fileFormat": "DOCX",
+    "language": "VI"
+  },
+  {
+    "id": 1002,
+    "title": "Mô Hình Xử Lý Ngôn Ngữ Tự Nhiên Tiếng Việt Dựa Trên Kiến Trúc Transformer",
+    "author": "ThS. Trần Thị Mai & Nhóm Nghiên Cứu NLP",
+    "originalCategory": "Trí Tuệ Nhân Tạo",
+    "topic": "Trí Tuệ Nhân Tạo & Học Máy",
+    "summary": "Phát triển mô hình ngôn ngữ tiếng Việt tiền huấn luyện đa nhiệm phục vụ phân loại văn bản, tóm tắt tự động và trích xuất thực thể tên riêng (NER).",
+    "content": "CÔNG TRÌNH NGHIÊN CỨU: XỬ LÝ NGÔN NGỮ TỰ NHIÊN TIẾNG VIỆT\n\n1. GIỚI THIỆU VÀ ĐẶT VẤN ĐỀ\nXử lý ngôn ngữ tự nhiên (Natural Language Processing - NLP) cho tiếng Việt đối mặt với nhiều đặc thù phức tạp do tính chất đơn lập, hiện tượng từ ghép đa âm tiết không có ranh giới từ hiển thị bằng khoảng trắng, và sự phụ thuộc nặng nề vào ngữ cảnh thanh điệu. Các mô hình dựa trên mạng hồi quy RNN hay LSTM trước đây thường gặp khó khăn khi xử lý các chuỗi văn bản dài do vấn đề suy giảm đạo hàm (vanishing gradient).\n\n2. PHƯƠNG PHÁP VÀ KIẾN TRÚC MÔ HÌNH TRANSFORMER\nĐể khắc phục hạn chế trên, chúng tôi xây dựng mô hình ngôn ngữ tiền huấn luyện dựa trên kiến trúc Transformer với cơ chế tự chú ý đa đầu (Multi-Head Self-Attention). Mô hình sử dụng bộ mã hóa gồm 12 tầng (Transformer layers), 768 chiều ẩn (hidden dimension), và 12 đầu chú ý độc lập. Quá trình tách từ sử dụng thuật toán Byte-Pair Encoding (BPE) tùy biến riêng cho bảng chữ cái tiếng Việt với kích thước từ vựng (vocabulary size) là 45.000 subwords.\n\n3. DỮ LIỆU HUẤN LUYỆN VÀ CHIẾN LƯỢC HỌC\nKho ngữ liệu tiền huấn luyện được tổng hợp từ hơn 20GB văn bản tiếng Việt số hóa, bao gồm báo điện tử, bài báo khoa học, và tài liệu bách khoa toàn thư. Mô hình được huấn luyện theo hai nhiệm vụ chính: Masked Language Modeling (chiếm 80%) và Next Sentence Prediction (chiếm 20%) trong suốt 500.000 bước huấn luyện trên hạ tầng tính toán phân tán.\n\n4. KẾT QUẢ ĐỐI SÁNH THỰC NGHIỆM\nChúng tôi đánh giá mô hình trên ba tác vụ cốt lõi của thư viện số:\n- Phân loại chủ đề văn bản: Đạt điểm F1-Score là 95.8%, cao hơn 6.2% so với mô hình Bi-LSTM.\n- Nhận dạng thực thể tên riêng (NER): Đạt độ chính xác 92.4% trên tập nhãn thực thể tổ chức, địa danh và tác giả.\n- Tóm tắt văn bản tự động: Chỉ số ROUGE-1 đạt 46.8 và ROUGE-L đạt 41.5, tạo ra các bản tóm tắt trích xuất và diễn giải mạch lạc.\n\n5. KẾT LUẬN VÀ ĐÓNG GÓP\nMô hình Transformer tiếng Việt đề xuất tạo nền tảng vững chắc cho hệ thống quản lý thư viện số tự động, cho phép lập chỉ mục ngữ nghĩa sâu và gợi ý tài liệu học thuật theo ngữ cảnh một cách thông minh.",
+    "fileFormat": "PDF",
+    "language": "VI"
+  },
+  {
+    "id": 1003,
+    "title": "Khai Phá Dữ Liệu Lớn và Thuật Toán Phân Cụm Tài Liệu Học Thuật Tự Động",
+    "author": "PGS.TS. Lê Hoàng Minh, Viện Công Nghệ Thông Tin",
+    "originalCategory": "Khai Phá Dữ Liệu",
+    "topic": "Trí Tuệ Nhân Tạo & Học Máy",
+    "summary": "Khảo sát và đối sánh các thuật toán phân cụm K-Means, Hierarchical và DBSCAN trên tập văn bản số hóa lớn của thư viện trường đại học.",
+    "content": "BÀI BÁO KHOA HỌC: KHAI PHÁ DỮ LIỆU VĂN BẢN VÀ PHÂN CỤM HỌC THUẬT\n\n1. TỔNG QUAN BÀI TOÁN PHÂN NHÓM TÀI LIỆU\nSự bùng nổ của tài liệu học thuật số hóa trong các thư viện hiện đại đòi hỏi các phương pháp tự động hóa khâu phân loại nhằm tiết kiệm nhân lực thủ thư và nâng cao hiệu quả tìm kiếm. Bài toán phân cụm không giám sát (unsupervised clustering) cho phép tự động gom các văn bản có ngữ nghĩa tương đồng thành từng nhóm chuyên đề mà không cần gán nhãn thủ công từ trước.\n\n2. QUY TRÌNH XỬ LÝ VÀ TRÍCH XUẤT ĐẶC TRƯNG TF-IDF\nQuy trình thực hiện bao gồm các giai đoạn chuẩn hóa:\n- Làm sạch ký tự đặc biệt, chuẩn hóa chữ thường và bảo toàn dấu tiếng Việt.\n- Tách từ vựng và loại bỏ các từ dừng chức năng phổ biến (stopwords).\n- Xây dựng ma trận TF-IDF (Term Frequency - Inverse Document Frequency) với kích thước từ vựng tối đa 1.500 đặc trưng nổi bật nhất, áp dụng chuẩn hóa vector L2 để đồng nhất độ dài tài liệu.\n\n3. ĐỐI SÁNH THỰC NGHIỆM 3 THUẬT TOÁN CỐT LÕI\nThực nghiệm được triển khai trên 900 tài liệu thuộc 6 lĩnh vực khoa học khác nhau:\n- K-Means (với khởi tạo K-Means++ và độ đo Cosine): Đạt Silhouette Score 0.0275, Purity đạt 57.56%, thời gian hội tụ chỉ mất 68.5 ms.\n- Hierarchical (Agglomerative với liên kết trung bình): Đạt Purity 50.89%, thời gian thực thi 325.4 ms do chi phí tính toán ma trận khoảng cách O(N^2).\n- DBSCAN (Mật độ): Đạt Purity 33.22%, phát sinh nhiều điểm nhiễu ngoại lai do đặc trưng văn bản có số chiều cao và độ thưa lớn.\n\n4. KẾT LUẬN KHOA HỌC\nThuật toán K-Means kết hợp khoảng cách Cosine là lựa chọn tối ưu nhất cho hệ thống thư viện số thực tế, vừa đảm bảo chất lượng phân cụm vừa có khả năng phân loại tức thời (< 2 ms) tài liệu mới thêm vào.",
+    "fileFormat": "PDF",
+    "language": "VI"
+  },
+  {
+    "id": 1004,
+    "title": "Nghiên Cứu Lâm Sàng Hiệu Quả Kháng Sinh Thế Hệ Mới Trong Điều Trị Nhiễm Khuẩn Huyết",
+    "author": "BS.CKII. Phạm Đức Thịnh, Bệnh Viện Bạch Mai",
+    "originalCategory": "Y Học & Dược Phẩm",
+    "topic": "Y Học & Dược Phẩm",
+    "summary": "Thử nghiệm lâm sàng ngẫu nhiên có đối chứng đánh giá hiệu quả kháng khuẩn, độ an toàn và độc tính thận của phác đồ phối hợp kháng sinh.",
+    "content": "BÁO CÁO THỰC THỬ NGHIỆM LÂM SÀNG Y DƯỢC HỌC\n\n1. MỤC TIÊU VÀ BỐI CẢNH Y HỌC\nNhiễm khuẩn huyết và sốc nhiễm khuẩn là nguyên nhân hàng đầu gây tử vong tại các khoa hồi sức tích cực (ICU). Tình trạng vi khuẩn đa kháng thuốc, đặc biệt là các chủng trực khuẩn mủ xanh và vi khuẩn gram âm sinh men carbapenemase, đe dọa trực tiếp đến tính mạng người bệnh. Nghiên cứu nhằm đánh giá hiệu lực diệt khuẩn và độ an toàn của phác đồ kết hợp thế hệ mới.\n\n2. ĐỐI TƯỢNG VÀ PHƯƠNG PHÁP NGHIÊN CỨU\nNghiên cứu tiến hành trên 120 bệnh nhân từ 18 tuổi trở lên được chẩn đoán nhiễm khuẩn huyết nặng tại Bệnh viện Bạch Mai. Bệnh nhân được chia ngẫu nhiên thành hai nhóm:\n- Nhóm can thiệp (60 bệnh nhân): Điều trị bằng phác đồ kết hợp Meropenem liều cao truyền kéo dài phối hợp với Colistin điều chỉnh theo độ thanh thải creatinine.\n- Nhóm chứng (60 bệnh nhân): Điều trị theo phác đồ kháng sinh kinh nghiệm truyền thống.\n\n3. KẾT QUẢ THEO DÕI VÀ ĐÁNH GIÁ LÂM SÀNG\n- Tỷ lệ làm sạch vi khuẩn trong máu sau 72 giờ điều trị ở nhóm can thiệp đạt 81.7%, cao hơn rõ rệt so với nhóm chứng (58.3%, p < 0.01).\n- Các chỉ số đáp ứng viêm toàn thân gồm nồng độ Procalcitonin và số lượng bạch cầu đa nhân trung tính ở nhóm can thiệp giảm về ngưỡng an toàn nhanh hơn trung bình 3.5 ngày.\n- Tỷ lệ tổn thương thận cấp tính ghi nhận ở mức 8.3% và đều hồi phục hoàn toàn sau khi điều chỉnh liều, không có ca nào phải lọc máu ngắt quãng ngoài chỉ định ban đầu.\n\n4. KẾT LUẬN VÀ KHUYẾN CÁO LÂM SÀNG\nPhác đồ phối hợp mang lại hiệu quả vượt trội trong việc kiểm soát nhiễm khuẩn huyết, giảm tỷ lệ tử vong nội viện từ 35% xuống còn 18.3%, là cơ sở tin cậy để chuẩn hóa phác đồ điều trị hồi sức cấp cứu.",
+    "fileFormat": "PDF",
+    "language": "VI"
+  },
+  {
+    "id": 1005,
+    "title": "Ứng Dụng Trí Tuệ Nhân Tạo Trong Chẩn Đoán Hình Ảnh X-Quang Phổi và Khối U Lồng Ngực",
+    "author": "TS.BS. Hoàng Thị Kim Oanh, Đại Học Y Dược",
+    "originalCategory": "Y Học & Dược Phẩm",
+    "topic": "Y Học & Dược Phẩm",
+    "summary": "Hệ thống hỗ trợ chẩn đoán AI giúp bác sĩ phát hiện sớm tổn thương nhu mô phổi, viêm phổi thâm nhiễm và khối u ác tính.",
+    "content": "NGHIÊN CỨU CHẨN ĐOÁN HÌNH ẢNH KỸ THUẬT SỐ VÀ TRÍ TUỆ NHÂN TẠO\n\n1. TỔNG QUAN BÀI TOÁN SỨC KHỎE CỘNG ĐỒNG\nCác bệnh lý đường hô hấp và ung thư phổi là gánh nặng y tế lớn trên toàn cầu. Việc sàng lọc sớm bằng phim chụp X-quang ngực thẳng (CXR) đóng vai trò quyết định, tuy nhiên nguy cơ bỏ sót tổn thương ở giai đoạn sớm do mật độ xương sườn che khuất hoặc quá tải công việc của bác sĩ là rất cao. Nghiên cứu này xây dựng phần mềm AI đóng vai trò người đọc thứ hai (second reader).\n\n2. MÔ HÌNH HỌC SÂU VÀ DỮ LIỆU ĐÀO TẠO\nMô hình dựa trên mạng DenseNet-121 kết hợp cơ chế Feature Pyramid Network (FPN) để trích xuất tổn thương ở nhiều độ phóng đại khác nhau. Bộ dữ liệu gồm 12.000 phim X-quang kỹ thuật số đã được hội đồng chuyên gia chẩn đoán hình ảnh dán nhãn chuẩn hóa thành 5 nhóm bệnh: Viêm phổi, Tràn dịch màng phổi, Nốt mờ/khối u, Lao phổi và Bình thường.\n\n3. KẾT QUẢ THỬ NGHIỆM ĐỘC LẬP\n- Độ nhạy (Sensitivity) toàn diện đạt 94.2%, độ đặc hiệu (Specificity) đạt 91.8%.\n- Diện tích dưới đường cong ROC (AUC-ROC) đạt 0.963 đối với việc phát hiện nốt mờ phổi kích thước nhỏ từ 5-15mm.\n- Thời gian xử lý và tạo bản đồ nhiệt (Heatmap CAM) chỉ mất 0.8 giây cho mỗi phim chụp, giúp giảm 40% thời gian hội chẩn của bác sĩ lâm sàng.\n\n4. KẾT LUẬN\nỨng dụng AI trong chẩn đoán hình ảnh giúp nâng cao đáng kể độ chính xác phát hiện sớm bệnh phổi, có thể tích hợp trực tiếp vào hệ thống PACS của bệnh viện.",
+    "fileFormat": "DOCX",
+    "language": "VI"
+  },
+  {
+    "id": 1006,
+    "title": "Khám Phá Khí Quyển Sao Hỏa và Dấu Vết Methane Qua Dữ Liệu Phổ Kế Tàu Thám Hiểm",
+    "author": "TS. Vũ Quốc Hưng, Trung Tâm Vũ Trụ Việt Nam",
+    "originalCategory": "Thiên Văn & Vũ Trụ",
+    "topic": "Khoa Học Vũ Trụ & Thiên Văn",
+    "summary": "Phân tích dữ liệu quang phổ học hồng ngoại từ tàu quỹ đạo Mars Reconnaissance Orbiter nhằm khảo sát chu kỳ biến thiên khí quyển Sao Hỏa.",
+    "content": "BÁO CÁO KHOA HỌC THIÊN VĂN HỌC HÀNH TINH: KHÁM PHÁ SAO HỎA\n\n1. ĐẶT VẤN ĐỀ VẬT LÝ VŨ TRỤ\nKhí quyển Sao Hỏa là môi trường cực kỳ loãng với áp suất bề mặt chỉ bằng khoảng 0.6% so với Trái Đất, cấu thành chủ yếu bởi khí CO2 (95.3%). Sự phát hiện các dấu vết biến thiên nồng độ khí methane (CH4) theo mùa là một trong những ẩn số hấp dẫn nhất của khoa học hành tinh, vì methane dễ bị phá hủy bởi bức xạ tử ngoại mặt trời và cần một nguồn bổ sung liên tục.\n\n2. THIẾT BỊ ĐO ĐẠC VÀ DỮ LIỆU QUANG PHỔ HỌC\nNghiên cứu sử dụng dữ liệu từ thiết bị quang phổ kế hồng ngoại CRISM (Compact Reconnaissance Imaging Spectrometer for Mars) lắp trên tàu quỹ đạo MRO kết hợp cảm biến Tunable Laser Spectrometer (TLS) của xe tự hành Curiosity tại miệng núi lửa Gale. Dải bước sóng hồng ngoại 3.2 đến 3.4 micromet được phân tích để tách vạch hấp thụ phân tử methane.\n\n3. KẾT QUẢ VÀ THẢO LUẬN\n- Nồng độ nền của methane được ghi nhận ở mức dao động từ 0.24 đến 0.72 phần tỷ thể tích (ppbv).\n- Đáng chú ý, các đợt phát thải đột biến (plumes) đạt nồng độ tới 21 ppbv đã được ghi nhận vào mùa hè ở bán cầu bắc.\n- Các phân tích đồng vị carbon chỉ ra rằng khí methane có thể sinh ra từ phản ứng serpentin hóa thủy nhiệt sâu dưới lớp vỏ permafrost hoặc tàn tích vi sinh vật cổ đại được giải phóng khi nhiệt độ bề mặt tăng lên.\n\n4. KẾT LUẬN\nNghiên cứu cung cấp bằng chứng thực nghiệm quan trọng hỗ trợ cho các sứ mệnh thám hiểm không gian trong tương lai nhằm tìm kiếm dấu vết sự sống ngoài Trái Đất.",
+    "fileFormat": "PDF",
+    "language": "VI"
+  },
+  {
+    "id": 1007,
+    "title": "Kính Thiên Văn Không Gian James Webb và Những Phát Hiện Về Các Thiên Hà Cổ Đại",
+    "author": "ThS. Đặng Tuấn Khang, Hội Thiên Văn Học",
+    "originalCategory": "Thiên Văn & Vũ Trụ",
+    "topic": "Khoa Học Vũ Trụ & Thiên Văn",
+    "summary": "Quan sát quang học hồng ngoại bước sóng sâu của kính JWST hé lộ sự hình thành của các thiên hà đầu tiên chỉ 300 triệu năm sau Vụ Nổ Lớn.",
+    "content": "BÁO CÁO VẬT LÝ THIÊN VĂN: QUAN SÁT VŨ TRỤ SƠ KHAI CỦA JWST\n\n1. SỨ MỆNH KÍNH THIÊN VĂN JAMES WEBB (JWST)\nKính thiên văn không gian James Webb được phóng lên quỹ đạo quanh điểm Lagrange L2 vào cuối năm 2021 mang theo gương chính đường kính 6.5 mét và các thiết bị thu nhận hồng ngoại làm lạnh sâu dưới 7 Kelvin. Mục tiêu hàng đầu là quan sát ánh sáng đầu tiên của vũ trụ bị dịch chuyển đỏ nghiêm trọng do sự giãn nở không-thời gian suốt 13.8 tỷ năm.\n\n2. PHƯƠNG PHÁP QUAN SÁT VÙNG TRỜI SÂU (DEEP FIELD)\nSử dụng camera cận hồng ngoại NIRCam và máy quang phổ đa đối tượng NIRSpec, JWST đã thực hiện các phơi sáng tích lũy kéo dài hàng trăm giờ hướng vào cụm thiên hà SMACS 0723, tận dụng hiện tượng thấu kính hấp dẫn để khuếch đại ánh sáng từ các nguồn cực xa nằm phía sau.\n\n3. CÁC PHÁT HIỆN ĐỘT PHÁ\n- Phát hiện thiên hà JADES-GS-z14-0 với độ dịch chuyển đỏ kỷ lục z = 14.32, tương ứng với thời điểm chỉ 290 triệu năm sau Big Bang.\n- Khối lượng và độ sáng của các thiên hà sơ khai này lớn hơn nhiều so với dự báo của mô hình vũ trụ học chuẩn Lambda-CDM, cho thấy quá trình hình thành sao và tích tụ lỗ đen siêu nặng diễn ra nhanh và mãnh liệt hơn nhiều so với lý thuyết trước đây.\n- Quang phổ NIRSpec cũng xác nhận sự tồn tại bất ngờ của bụi vũ trụ và các nguyên tố nặng như oxy và carbon ngay trong những thiên hà trẻ tuổi này.\n\n4. KẾT LUẬN\nNhững quan sát mang tính cách mạng của JWST đang viết lại các chương đầu tiên của lịch sử vũ trụ học và tiến hóa thiên hà.",
+    "fileFormat": "DOCX",
+    "language": "VI"
+  },
+  {
+    "id": 1008,
+    "title": "Mô Hình Mã Hóa Đường Cong Elliptic và Bảo Mật Điện Toán Đám Mây",
+    "author": "TS. Đỗ Hải Nam, Học Viện Kỹ Thuật Mật Mã",
+    "originalCategory": "Mật Mã Học & An Ninh Mạng",
+    "topic": "Mật Mã Học & An Toàn Thông Tin",
+    "summary": "Thiết kế giao thức xác thực không tiết lộ tri thức (Zero-Knowledge Proofs) dựa trên đường cong elliptic phục vụ lưu trữ đám mây an toàn.",
+    "content": "CÔNG TRÌNH NGHIÊN CỨU MẬT MÃ HỌC VÀ AN TOÀN DỮ LIỆU ĐÁM MÂY\n\n1. BÀI TOÁN AN TOÀN DỮ LIỆU TRÊN NỀN TẢNG CLOUD\nKhi các doanh nghiệp và cơ quan nhà nước chuyển dịch dữ liệu nhạy cảm lên hạ tầng điện toán đám mây công cộng, bài toán kiểm soát quyền truy cập và bảo vệ tính toàn vẹn dữ liệu trở nên sống còn. Các thuật toán khóa công khai cổ điển như RSA đòi hỏi chiều dài khóa lên tới 3072-bit để đạt mức an toàn hiện đại, gây lãng phí băng thông và năng lực tính toán của các thiết bị đầu cuối.\n\n2. HỆ MẬT MÃ ĐƯỜNG CONG ELLIPTIC (ECC)\nChúng tôi thiết kế kiến trúc bảo mật dựa trên đường cong Weierstrass định nghĩa trên trường hữu hạn F_p (tiêu chuẩn Curve25519). Với chiều dài khóa chỉ 256-bit, hệ mật ECC mang lại độ bền mật mã tương đương khóa RSA 3072-bit, giúp tiết kiệm 85% chi phí tính toán chữ ký số và giảm kích thước bản tin trao đổi.\n\n3. GIAO THỨC CHỨNG THỰC BẢO VỆ DANH TÍNH (ZKP)\nKết hợp sơ đồ chữ ký Schnorr trên đường cong elliptic với giao thức bằng chứng không tiết lộ tri thức (Zero-Knowledge Proofs), người dùng có thể chứng minh quyền truy xuất tài nguyên số trong thư viện mà không cần gửi mật khẩu hay khóa riêng lên máy chủ đám mây, loại trừ hoàn toàn nguy cơ bị nghe lén (Eavesdropping) hay tấn công trung gian (Man-in-the-Middle).\n\n4. KẾT QUẢ ĐÁNH GIÁ HIỆU NĂNG\nThử nghiệm trên 100.000 yêu cầu xác thực đồng thời cho thấy độ trễ xử lý trung bình đạt 1.8 ms trên mỗi giao dịch, thông lượng đạt trên 12.000 TPS, đáp ứng hoàn hảo yêu cầu bảo mật cấp độ chính phủ và ngân hàng số.",
+    "fileFormat": "TXT",
+    "language": "VI"
+  },
+  {
+    "id": 1009,
+    "title": "Phát Hiện Tấn Công Mạng Zero-Day Bằng Kỹ Thuật Học Máy Phân Tích Lưu Lượng Bất Thường",
+    "author": "KS. Nguyễn Quang Huy & Phòng An Ninh Mạng",
+    "originalCategory": "Mật Mã Học & An Ninh Mạng",
+    "topic": "Mật Mã Học & An Toàn Thông Tin",
+    "summary": "Ứng dụng mô hình Autoencoder không giám sát kết hợp Isolation Forest để phát hiện sớm các cuộc tấn công mạng chưa từng biết đến.",
+    "content": "BÁO CÁO KHOA HỌC: AN NINH MẠNG VÀ PHÁT HIỆN TẤN CÔNG BẤT THƯỜNG\n\n1. NGUY CƠ TỪ CÁC CUỘC TẤN CÔNG ZERO-DAY\nCác cuộc tấn công mạng khai thác lỗ hổng bảo mật chưa được công bố (Zero-day exploits) gây ra thiệt hại nghiêm trọng nhất vì các hệ thống phòng thủ tường lửa và diệt virus truyền thống hoàn toàn bất lực khi chưa có chữ ký nhận diện. Giải pháp khả dĩ duy nhất là phát hiện dựa trên hành vi bất thường của luồng dữ liệu mạng.\n\n2. MÔ HÌNH HỌC KHÔNG GIÁM SÁT VỚI AUTOENCODER\nChúng tôi phát triển mô hình mạng nơ-ron Autoencoder sâu (Deep Autoencoder) được huấn luyện độc quyền trên lưu lượng mạng bình thường. Mô hình học cách nén các vector đặc trưng gói tin (thời lượng kết nối, kích thước gói, cờ TCP, tốc độ truyền) vào một không gian tiềm ẩn (latent space) và giải mã tái tạo lại.\n\n3. CƠ CHẾ PHÁT HIỆN VÀ CẢNH BÁO THỜI GIAN THỰC\nKhi một cuộc tấn công mạng xảy ra (ví dụ: quét cổng ẩn, trích xuất dữ liệu trái phép hoặc mã độc tống tiền liên lạc với máy chủ C&C), cấu trúc gói tin sẽ khác biệt so với phân phối thông thường, dẫn đến sai số tái tạo (Reconstruction Error) tăng vọt vượt ngưỡng threshold. Ngay lập tức, hệ thống kích hoạt cô lập phiên làm việc đáng ngờ và gửi cảnh báo đến kỹ sư an ninh.\n\n4. KẾT QUẢ THỬ NGHIỆM TRÊN TẬP DỮ LIỆU CHUẨN\nTrên bộ dữ liệu chuẩn CIC-IDS2017, hệ thống đạt tỷ lệ phát hiện tấn công Zero-day là 96.8% với tỷ lệ báo động giả (False Positive Rate) chỉ 1.2%, thời gian phát hiện trung bình dưới 50 mili-giây kể từ khi gói tin đầu tiên xâm nhập.",
+    "fileFormat": "DOCX",
+    "language": "VI"
+  },
+  {
+    "id": 1010,
+    "title": "Chiến Lược Chuyển Đổi Số Trong Hệ Thống Ngân Hàng Thương Mại và Thanh Toán Điện Tử",
+    "author": "TS. Bùi Phương Nga, Đại Học Kinh Tế Quốc Dân",
+    "originalCategory": "Kinh Tế Số",
+    "topic": "Kinh Tế Số & Thương Mại Điện Tử",
+    "summary": "Phân tích xu hướng phát triển ngân hàng mở (Open Banking), ứng dụng e-KYC và thanh toán không dùng tiền mặt tại Việt Nam.",
+    "content": "CÔNG TRÌNH NGHIÊN CỨU KINH TẾ: CHUYỂN ĐỔI SỐ NGÂN HÀNG THƯƠNG MẠI\n\n1. XU THẾ TẤT YẾU CỦA KINH TẾ SỐ\nCách mạng công nghiệp 4.0 đang định hình lại căn bản mô hình vận hành của hệ thống tài chính toàn cầu. Tại Việt Nam, quá trình chuyển đổi số ngành ngân hàng không chỉ là giải pháp tối ưu hóa chi phí vận hành mà còn là chiến lược cốt lõi để giữ chân khách hàng trong bối cảnh cạnh tranh gay gắt từ các công ty công nghệ tài chính (Fintech).\n\n2. CÁC TRỤ CỘT CÔNG NGHỆ CHUYỂN ĐỔI SỐ\nNghiên cứu làm rõ 4 trụ cột công nghệ then chốt:\n- Định danh khách hàng điện tử (e-KYC): Ứng dụng nhận diện sinh trắc học khuôn mặt và quét CCCD gắn chip giúp mở tài khoản ngân hàng trực tuyến 100% trong 2 phút.\n- Ngân hàng mở (Open Banking và Open API): Cho phép chia sẻ dữ liệu an toàn giữa ngân hàng và bên thứ ba để tích hợp thanh toán vào thương mại điện tử, dịch vụ công và logistics.\n- Trí tuệ nhân tạo và Dữ liệu lớn (Big Data AI): Phân tích hành vi chi tiêu để chấm điểm tín dụng tự động (Credit Scoring) và cá nhân hóa sản phẩm tài chính.\n- Thanh toán không tiếp xúc qua mã VietQR và ví điện tử.\n\n3. ĐÁNH GIÁ THỰC TRẠNG VÀ TÁC ĐỘNG KINH TẾ\nKhảo sát thực nghiệm trên 1.500 khách hàng và 15 ngân hàng thương mại Việt Nam giai đoạn 2022-2025 chỉ ra:\n- Tỷ trọng giao dịch qua kênh số đạt trên 92%, tốc độ tăng trưởng thanh toán không dùng tiền mặt đạt bình quân 51.6%/năm.\n- Tỷ lệ chi phí trên thu nhập (CIR) của các ngân hàng tiên phong chuyển đổi số giảm mạnh từ 44% xuống dưới 32%, thể hiện hiệu quả sử dụng vốn vượt bậc.\n\n4. HÀM Ý CHÍNH SÁCH VÀ KHUYẾN NGHỊ\nNghiên cứu khuyến nghị cần sớm hoàn thiện khung pháp lý thử nghiệm có kiểm soát (Sandbox), ban hành tiêu chuẩn kỹ thuật kết nối dữ liệu quốc gia và tăng cường bảo vệ an toàn thông tin tài chính người tiêu dùng.",
+    "fileFormat": "PDF",
+    "language": "VI"
+  }
+]
