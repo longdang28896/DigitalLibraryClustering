@@ -118,20 +118,6 @@ public class DocumentCatalogPanel extends JPanel {
         searchInputs.add(lblLang);
         searchInputs.add(comboLangFilter);
 
-        JButton btnQuickVi = new JButton("Chỉ Hiện [VI] Tiếng Việt");
-        btnQuickVi.setFont(new Font("Segoe UI", Font.BOLD, 11));
-        btnQuickVi.setBackground(new Color(254, 242, 242));
-        btnQuickVi.setForeground(new Color(220, 38, 38));
-        btnQuickVi.putClientProperty(FlatClientProperties.STYLE, "arc: 8");
-        btnQuickVi.setToolTipText("Lọc nhanh để chỉ hiển thị các tài liệu Tiếng Việt (kèm tệp PDF, DOCX thực tế)");
-        btnQuickVi.addActionListener(e -> {
-            comboLangFilter.setSelectedIndex(1); // "Tiếng Việt (VI)"
-            clusterList.setSelectedIndex(0);    // "Tất Cả Tài Liệu"
-            currentSelectedCluster = null;
-            filterTable();
-        });
-        searchInputs.add(btnQuickVi);
-
         JPanel searchButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 0));
         searchButtons.setOpaque(false);
 

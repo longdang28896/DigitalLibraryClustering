@@ -1,0 +1,35 @@
+======================================================================
+  HỆ THỐNG THƯ VIỆN SỐ - TÀI LIỆU LƯU TRỮ VẬT LÝ #1017
+======================================================================
+
+TIÊU ĐỀ: Mô Hình Mã Hóa Khóa Công Khai và Giao Thức Bảo Mật Đường Cong Elliptic Trong Mật Mã Học
+TÁC GIẢ: TS. Đỗ Hải Nam, Học Viện Kỹ Thuật Mật Mã
+CHỦ ĐỀ:  Mật Mã Học & An Toàn Thông Tin
+ĐỊNH DẠNG GỐC: TXT  |  NGÔN NGỮ: VI
+
+----------------------------------------------------------------------
+TÓM TẮT (ABSTRACT):
+Public Key Encryption and Elliptic Curve Cryptography Security Protocols. Thiết kế thuật toán tạo cặp khóa công khai và khóa bí mật dựa trên đường cong elliptic, đảm bảo an toàn dữ liệu trước các cuộc tấn công thám mã.
+----------------------------------------------------------------------
+
+NỘI DUNG TOÀN VĂN:
+
+CÔNG TRÌNH NGHIÊN CỨU MẬT MÃ HỌC: MÃ HÓA KHÓA CÔNG KHAI
+
+1. TỔNG QUAN VỀ HỆ THỐNG MẬT MÃ HIỆN ĐẠI
+Trong kỷ nguyên kết nối Internet toàn cầu, các giao thức mã hóa khóa công khai (public key cryptography) là nền móng bảo vệ thông tin liên lạc mật, giao dịch tài chính và chữ ký số điện tử. Các thuật toán cổ điển đòi hỏi chiều dài khóa rất lớn để chống lại các thuật toán phân tích số nguyên tố, gây tốn kém năng lực tính toán.
+
+2. HỆ MẬT MÃ ĐƯỜNG CONG ELLIPTIC (ECC) VÀ QUẢN LÝ KHÓA
+Chúng tôi phát triển sơ đồ mã hóa dựa trên nhóm điểm của đường cong elliptic trên trường hữu hạn F_p (tiêu chuẩn Curve25519). Với chiều dài khóa chỉ 256-bit, hệ mật cung cấp độ an toàn tương đương khóa RSA 3072-bit, giúp tăng tốc độ sinh khóa và trao đổi khóa bí mật Diffie-Hellman lên gấp 4 lần.
+
+3. ĐÁNH GIÁ ĐỘ AN TOÀN TRƯỚC TẤN CÔNG THÁM MÃ
+Phân tích chứng minh hệ mật kháng cự tuyệt đối trước các đòn tấn công vét cạn (brute-force), tấn công kênh kề (side-channel attacks) và phân tích sai phân. Thời gian thực thi phép nhân vô hướng điểm đường cong chỉ mất 0.12 ms trên vi xử lý thông thường.
+
+4. KẾT LUẬN
+Thuật toán mật mã đề xuất là giải pháp lý tưởng cho các thiết bị di động thông minh, thẻ thông minh và hệ thống mã hóa dữ liệu đầu cuối.
+
+ABSTRACT:
+This paper investigates public key cryptography protocols and elliptic curve encryption algorithms for secure digital communications. We design key generation mechanisms, secret key exchange protocols, and digital signature schemes that offer robust cryptographic security. The cryptographic cipher guarantees data privacy protection, mathematical resistance against cryptanalysis, and high computational efficiency.
+
+KEYWORDS:
+cryptography, encryption, public key, secret keys, cryptographic algorithm, cipher security, privacy protection, clipper chip, escrow security

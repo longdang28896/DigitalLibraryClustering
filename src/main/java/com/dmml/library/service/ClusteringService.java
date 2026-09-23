@@ -318,6 +318,14 @@ public class ClusteringService {
         return scoredDocs.stream().limit(topN).collect(Collectors.toList());
     }
 
+    public double[] getDocumentVector(int docId) {
+        return docVectorMap.get(docId);
+    }
+
+    public KMeansClusterer getKMeansClusterer() {
+        return kMeansClusterer;
+    }
+
     public ClusteringResult getLatestResult() {
         return latestResult;
     }

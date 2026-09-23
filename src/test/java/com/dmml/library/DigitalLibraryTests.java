@@ -237,6 +237,9 @@ public class DigitalLibraryTests {
         assertNotNull(updated);
         assertEquals(3, updated.getClusterId());
         assertTrue(updated.isManuallyAssigned());
+
+        // Clean up test document
+        repo.deleteById(doc.getId());
     }
 
     @Test
@@ -277,12 +280,34 @@ public class DigitalLibraryTests {
     @Test
     public void testDebugCheckDocuments() {
         com.dmml.library.service.DocumentRepository repo = com.dmml.library.service.DocumentRepository.getInstance();
-        System.out.println("=== REPO TOTAL: " + repo.count() + " ===");
+        com.dmml.library.service.ClusteringService service = com.dmml.library.service.ClusteringService.getInstance();
+        com.dmml.library.model.ClusteringResult res = service.runClustering("kmeans", 6);
+        
+        System.out.println("=== CLUSTER BREAKDOWN ===");
+        for (com.dmml.library.model.ClusterInfo c : res.getClusters()) {
+            long viCount = c.getDocuments().stream().filter(d -> "VI".equalsIgnoreCase(d.getLanguage())).count();
+            java.util.Map<String, Long> catCounts = c.getDocuments().stream().collect(java.util.stream.Collectors.groupingBy(d -> d.getOriginalCategory() != null ? d.getOriginalCategory() : "null", java.util.stream.Collectors.counting()));
+            System.out.println("Cluster " + c.getClusterId() + " (" + c.getClusterName() + ") : Total=" + c.getDocumentCount() + " (VI=" + viCount + ") | Categories: " + catCounts + " | Keywords: " + c.getTopKeywords());
+        }
+        
         List<com.dmml.library.model.Document> viDocs = repo.search("", null, "VI");
         System.out.println("=== VI DOCS FOUND: " + viDocs.size() + " ===");
+        double[][] centroids = service.getKMeansClusterer().getCentroids();
         for (com.dmml.library.model.Document d : viDocs) {
-            System.out.println("-> ID: " + d.getId() + " | Title: " + d.getTitle() + " | Lang: " + d.getLanguage() + " | Cluster: " + d.getClusterId());
+            double[] vec = service.getDocumentVector(d.getId());
+            StringBuilder sims = new StringBuilder();
+            if (vec != null && centroids != null) {
+                for (int c = 0; c < centroids.length; c++) {
+                    double sim = com.dmml.library.ml.clustering.KMeansClusterer.cosineSimilarity(vec, centroids[c]);
+                    sims.append(String.format(" C%d=%.3f", c, sim));
+                }
+            }
+            System.out.println("-> ID: " + d.getId() + " | Cat: " + d.getOriginalCategory() + " | Cluster: " + d.getClusterId() + " | Sims:" + sims);
         }
-        assertTrue(viDocs.size() >= 10, "Should have at least 10 Vietnamese documents");
+        assertEquals(24, viDocs.size(), "Should have exactly 24 Vietnamese documents");
+        for (com.dmml.library.model.ClusterInfo c : res.getClusters()) {
+            long viCount = c.getDocuments().stream().filter(d -> "VI".equalsIgnoreCase(d.getLanguage())).count();
+            assertTrue(viCount > 0, "Cluster " + c.getClusterId() + " must have Vietnamese documents, but found 0");
+        }
     }
 }

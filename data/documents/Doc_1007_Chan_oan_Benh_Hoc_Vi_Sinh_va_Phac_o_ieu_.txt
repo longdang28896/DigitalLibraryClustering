@@ -1,0 +1,35 @@
+======================================================================
+  HỆ THỐNG THƯ VIỆN SỐ - TÀI LIỆU LƯU TRỮ VẬT LÝ #1007
+======================================================================
+
+TIÊU ĐỀ: Chẩn Đoán Bệnh Học Vi Sinh và Phác Đồ Điều Trị Nhiễm Trùng Tại Khoa Hồi Sức Tích Cực
+TÁC GIẢ: PGS.TS. Đỗ Hải Quân, Viện Vệ Sinh Dịch Tễ
+CHỦ ĐỀ:  Y Học Lâm Sàng & Dược Phẩm
+ĐỊNH DẠNG GỐC: TXT  |  NGÔN NGỮ: VI
+
+----------------------------------------------------------------------
+TÓM TẮT (ABSTRACT):
+Microbiological Disease Diagnosis and Intensive Care Patient Treatment Protocols. Nghiên cứu phân lập chủng vi khuẩn gây bệnh, xét nghiệm kháng sinh đồ và phác đồ điều trị hồi sức cấp cứu cho bệnh nhân nặng.
+----------------------------------------------------------------------
+
+NỘI DUNG TOÀN VĂN:
+
+BÁO CÁO NGHIÊN CỨU DỊCH TỄ VÀ BỆNH HỌC LÂM SÀNG
+
+1. BỐI CẢNH DỊCH TỄ HỌC BỆNH VIỆN
+Các bệnh nhiễm trùng bệnh viện tại khoa hồi sức cấp cứu (ICU) có diễn tiến cực kỳ nguy hiểm do sức đề kháng của bệnh nhân suy giảm và mật độ chủng vi sinh vật kháng thuốc cao. Việc chẩn đoán vi sinh nhanh và định danh chính xác tác nhân gây bệnh đóng vai trò sống còn.
+
+2. PHƯƠNG PHÁP XÉT NGHIỆM VÀ PHÂN LẬP KHUẨN
+Chúng tôi thực hiện xét nghiệm nhuộm soi, nuôi cấy vi sinh tự động và kỹ thuật Realtime-PCR trên 350 mẫu dịch màng phổi, máu và nước tiểu của bệnh nhân. Đo lường nồng độ ức chế tối thiểu (MIC) của 18 loại kháng sinh phổ rộng.
+
+3. KẾT QUẢ PHÂN TÍCH VI SINH VÀ PHÁC ĐỒ Y KHOA
+Xác định 4 nhóm vi khuẩn gây bệnh phổ biến nhất: Acinetobacter baumannii (34.2%), Klebsiella pneumoniae (26.8%), Pseudomonas aeruginosa (19.5%) và MRSA (11.2%). Điều chỉnh phác đồ kháng sinh sớm trong vòng 12h giúp tăng tỷ lệ hồi phục của bệnh nhân lên 78.4%.
+
+4. KẾT LUẬN
+Kết hợp chẩn đoán vi sinh phân tử và giám sát lâm sàng chặt chẽ là chìa khóa then chốt để các bác sĩ cứu sống bệnh nhân nhiễm trùng hồi sức.
+
+ABSTRACT:
+This medical investigation addresses microbiological disease diagnosis, bacterial pathogen isolation, and clinical treatment regimens for intensive care hospital patients. Medical doctors evaluated diagnostic blood cultures, clinical infection symptoms, and patient antimicrobial responses. Early diagnostic detection significantly improves clinical recovery rates and patient survival against nosocomial diseases.
+
+KEYWORDS:
+disease diagnosis, clinical medicine, hospital patients, bacterial infection, medical doctor, antibiotic treatment, patient health, clinical pathology

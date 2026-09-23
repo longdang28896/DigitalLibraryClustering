@@ -9,6 +9,7 @@ public class KMeansClusterer implements ClusterAlgorithm {
     private double inertia;
     private int k;
     private final int maxIterations;
+    private final long seed;
     private final Random random;
 
     public KMeansClusterer() {
@@ -17,6 +18,7 @@ public class KMeansClusterer implements ClusterAlgorithm {
 
     public KMeansClusterer(int maxIterations, long seed) {
         this.maxIterations = maxIterations;
+        this.seed = seed;
         this.random = new Random(seed);
     }
 
@@ -40,6 +42,9 @@ public class KMeansClusterer implements ClusterAlgorithm {
         if (k > n) k = n;
         this.k = k;
         int d = data[0].length;
+
+        // Reset seed for reproducible and deterministic clustering
+        random.setSeed(seed);
 
         // 1. K-Means++ Initialization
         centroids = new double[k][d];

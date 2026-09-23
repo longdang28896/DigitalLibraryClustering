@@ -1,0 +1,35 @@
+======================================================================
+  HỆ THỐNG THƯ VIỆN SỐ - TÀI LIỆU LƯU TRỮ VẬT LÝ #1003
+======================================================================
+
+TIÊU ĐỀ: Phát Triển Phần Mềm Đồ Họa Tương Tác và Chuẩn Định Dạng File Hình Ảnh Kỹ Thuật Số
+TÁC GIẢ: ThS. Trần Thị Mai & Nhóm Kỹ Thuật Đồ Họa
+CHỦ ĐỀ:  Đồ Họa Máy Tính & Thị Giác Số
+ĐỊNH DẠNG GỐC: TXT  |  NGÔN NGỮ: VI
+
+----------------------------------------------------------------------
+TÓM TẮT (ABSTRACT):
+Interactive Computer Graphics Software and High-Resolution Image File Formats. Khảo sát các định dạng tệp tin đồ họa TIFF, JPEG, GIF và xây dựng phần mềm chỉnh sửa ảnh vector 3D tương tác.
+----------------------------------------------------------------------
+
+NỘI DUNG TOÀN VĂN:
+
+BÀI BÁO KHOA HỌC: PHẦN MỀM ĐỒ HỌA VÀ ĐỊNH DẠNG TỆP TIN HÌNH ẢNH
+
+1. ĐẶT VẤN ĐỀ
+Trong quản lý thư viện số và truyền thông đa phương tiện, việc chuyển đổi và hiển thị các định dạng tệp tin đồ họa (TIFF, PNG, JPEG, GIF) đòi hỏi phần mềm đồ họa phải có khả năng tương thích cao, hỗ trợ bảng màu 24-bit TrueColor và giữ nguyên độ phân giải không gian của ảnh.
+
+2. KIẾN TRÚC PHẦN MỀM ĐỒ HỌA
+Chúng tôi xây dựng phần mềm đồ họa máy tính với giao diện tương tác hỗ trợ thao tác phóng to, thu nhỏ, xoay vật thể 3D và áp dụng các bộ lọc tích chập để làm sắc nét hình ảnh, giảm nhiễu hạt và cân bằng độ tương phản màu sắc.
+
+3. KẾT QUẢ THỬ NGHIỆM VÀ ĐỘ CHÍNH XÁC MÀU
+Phần mềm hỗ trợ đọc ghi dữ liệu hình ảnh dung lượng lớn trên 100 MB với độ trễ mở tệp dưới 0.3 giây. Hệ màu RGB và CMYK được chuyển đổi chuẩn xác với sai số delta-E dưới 1.5, đáp ứng tiêu chuẩn in ấn đồ họa kỹ thuật số.
+
+4. KẾT LUẬN
+Hệ thống phần mềm cung cấp công cụ mạnh mẽ cho các nhà thiết kế đồ họa và kỹ sư thị giác máy tính trong việc xử lý tệp tin ảnh số đa kênh.
+
+ABSTRACT:
+This paper introduces an interactive computer graphics software architecture for manipulating digital image files and 3D visual data. We examine standard image formats including TIFF, JPEG, and bitmap files, alongside color palette manipulation and spatial resolution enhancement. The graphics software facilitates real-time 3D object rendering, vector transformations, and image display visualization.
+
+KEYWORDS:
+graphics software, digital image, computer graphics, image file format, tiff, 3d visualization, rendering program, pixel resolution, color display

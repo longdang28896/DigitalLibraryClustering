@@ -1,0 +1,35 @@
+======================================================================
+  HỆ THỐNG THƯ VIỆN SỐ - TÀI LIỆU LƯU TRỮ VẬT LÝ #1012
+======================================================================
+
+TIÊU ĐỀ: Nghiên Cứu Địa Chất Mặt Trăng và Các Hành Tinh Hệ Mặt Trời Từ Dữ Liệu Tàu Quỹ Đạo
+TÁC GIẢ: PGS.TS. Vũ Trọng Hùng, ĐH Mỏ - Địa Chất
+CHỦ ĐỀ:  Khoa Học Vũ Trụ & Thiên Văn Học
+ĐỊNH DẠNG GỐC: TXT  |  NGÔN NGỮ: VI
+
+----------------------------------------------------------------------
+TÓM TẮT (ABSTRACT):
+Lunar Surface Geology and Planetary Exploration Satellite Probe Research. Đánh giá thành phần khoáng vật lớp vỏ Mặt Trăng và các miệng hố va chạm thiên thạch thông qua ảnh viễn thám không gian.
+----------------------------------------------------------------------
+
+NỘI DUNG TOÀN VĂN:
+
+BÁO CÁO ĐỊA CHẤT HỌC HÀNH TINH: KHÁM PHÁ MẶT TRĂNG VÀ VŨ TRỤ
+
+1. TỔNG QUAN VỀ ĐỊA CHẤT VŨ TRỤ
+Mặt Trăng và các hành tinh đá trong Hệ Mặt Trời bảo tồn nguyên vẹn dấu tích của giai đoạn oanh tạc thiên thạch sơ khai cách đây 4 tỷ năm. Việc nghiên cứu lớp regolith và khoáng vật bề mặt Mặt Trăng giúp làm sáng tỏ nguồn gốc hình thành Trái Đất và hệ thống các hành tinh.
+
+2. PHƯƠNG PHÁP VIỄN THÁM TỪ TÀU QUỸ ĐẠO MẶT TRĂNG
+Sử dụng dữ liệu camera lập thể và máy đo cao laser từ tàu quỹ đạo thám hiểm Mặt Trăng LRO của NASA. Bản đồ số độ cao địa hình DEM được xây dựng với độ phân giải không gian 5m/pixel, phân tích phổ phản xạ gamma để xác định hàm lượng sắt, titan và băng nước tại các cực.
+
+3. KẾT QUẢ PHÁT HIỆN KHOÁNG SẢN VÀ BĂNG NƯỚC
+Phát hiện các túi băng nước vĩnh cửu nằm sâu trong bóng tối của các miệng núi lửa vùng cực Nam Mặt Trăng. Trữ lượng ước tính hàng trăm triệu tấn, là nguồn tài nguyên sống còn để sản xuất nhiên liệu tên lửa hydro-oxy cho các căn cứ vũ trụ lâu dài.
+
+4. KẾT LUẬN
+Kết quả nghiên cứu cung cấp cơ sở định vị chính xác vị trí xây dựng tiền đồn thám hiểm không gian đầu tiên của nhân loại trên Mặt Trăng.
+
+ABSTRACT:
+We present planetary geological findings regarding the lunar surface, crater impacts, and Solar System planetary bodies derived from orbital space satellite probes. Utilizing high-resolution imagery and multispectral radar instruments aboard space exploration craft, we map mineral deposits and ice resources. The study advances space research, planetary mission planning, and lunar orbital science.
+
+KEYWORDS:
+space research, lunar orbit, planetary exploration, nasa satellite, space craft, space probe, earth mission, astronomy surface, solar system
