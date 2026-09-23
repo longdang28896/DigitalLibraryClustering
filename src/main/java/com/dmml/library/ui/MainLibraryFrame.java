@@ -65,9 +65,9 @@ public class MainLibraryFrame extends JFrame {
         badgeGroup.setOpaque(false);
 
         lblStatDocs = createPillBadge("Tài Liệu: " + DocumentRepository.getInstance().count(), new Color(239, 246, 255), new Color(37, 99, 235));
-        lblStatClusters = createPillBadge("Cụm Chủ Đề: 6", new Color(236, 253, 245), new Color(16, 185, 129));
+        lblStatClusters = createPillBadge("Chủ Đề: 6", new Color(236, 253, 245), new Color(16, 185, 129));
         JLabel lblLangs = createPillBadge("Ngôn Ngữ: VI / EN", new Color(254, 243, 199), new Color(217, 119, 6));
-        JLabel lblFormats = createPillBadge("Định Dạng: PDF • DOCX • TXT", new Color(243, 244, 246), new Color(75, 85, 99));
+        JLabel lblFormats = createPillBadge("PDF • DOCX • TXT", new Color(243, 244, 246), new Color(75, 85, 99));
 
         badgeGroup.add(lblStatDocs);
         badgeGroup.add(lblStatClusters);
