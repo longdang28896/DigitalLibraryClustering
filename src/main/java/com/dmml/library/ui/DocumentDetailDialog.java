@@ -89,7 +89,7 @@ public class DocumentDetailDialog extends JDialog {
         if (doc.isManuallyAssigned()) {
             clusterName += " [Đã sửa thủ công]";
         }
-        lblTopic = new JLabel("Cụm chủ đề: " + clusterName);
+        lblTopic = new JLabel("Chủ đề: " + clusterName);
         lblTopic.setFont(new Font("Segoe UI", Font.BOLD, 12));
         lblTopic.setForeground(new Color(16, 185, 129));
 
@@ -188,16 +188,16 @@ public class DocumentDetailDialog extends JDialog {
         btnRevealFolder.setToolTipText("Mở thư mục data/documents trong Windows File Explorer và chọn file này");
         btnRevealFolder.addActionListener(e -> revealInExplorer());
 
-        JButton btnEditCluster = new JButton("Đổi Cụm / Chỉnh Sửa");
+        JButton btnEditCluster = new JButton("Đổi Chủ Đề / Sửa");
         btnEditCluster.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         btnEditCluster.putClientProperty(FlatClientProperties.STYLE, "arc: 8");
         btnEditCluster.addActionListener(e -> {
             EditDocumentDialog dialog = new EditDocumentDialog(this, doc, mainFrame);
             dialog.setVisible(true);
             // Refresh labels
-            String newClusterName = (doc.getClusterId() >= 0 ? "Cụm #" + (doc.getClusterId() + 1) : "Chưa phân cụm");
+            String newClusterName = com.dmml.library.service.ClusteringService.getInstance().getClusterDisplayName(doc.getClusterId());
             if (doc.isManuallyAssigned()) newClusterName += " [Đã sửa thủ công]";
-            lblTopic.setText("Cụm chủ đề: " + newClusterName + " - " + doc.getTopic());
+            lblTopic.setText("Chủ đề: " + newClusterName);
         });
 
         JButton btnExport = new JButton("Xuất Bản Sao...");

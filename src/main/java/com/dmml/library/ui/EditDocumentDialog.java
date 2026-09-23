@@ -142,7 +142,7 @@ public class EditDocumentDialog extends JDialog {
         clusterSelectRow.add(comboClusters, BorderLayout.CENTER);
         clusterSelectRow.add(btnAiSuggest, BorderLayout.EAST);
 
-        lblPredictedHint = new JLabel("Cụm hiện tại: " + (document.getClusterId() >= 0 ? "Cụm #" + (document.getClusterId() + 1) : "Chưa phân cụm") +
+        lblPredictedHint = new JLabel("Chủ đề hiện tại: " + clusteringService.getClusterDisplayName(document.getClusterId()) +
                 (document.isManuallyAssigned() ? " (Đã sửa thủ công)" : " (Do AI tự gán)"));
         lblPredictedHint.setFont(new Font("Segoe UI", Font.ITALIC, 11));
         lblPredictedHint.setForeground(new Color(55, 65, 81));
@@ -199,7 +199,7 @@ public class EditDocumentDialog extends JDialog {
             }
         } else {
             for (int i = 0; i < 6; i++) {
-                comboClusters.addItem(new ClusterChoice(i, "Cụm #" + (i + 1)));
+                comboClusters.addItem(new ClusterChoice(i, "Chủ Đề #" + (i + 1)));
             }
         }
 
@@ -241,7 +241,7 @@ public class EditDocumentDialog extends JDialog {
 
         ClusterChoice selectedChoice = (ClusterChoice) comboClusters.getSelectedItem();
         int newClusterId = (selectedChoice != null) ? selectedChoice.clusterId : document.getClusterId();
-        String newClusterName = (selectedChoice != null) ? selectedChoice.clusterName : "Cụm #" + (newClusterId + 1);
+        String newClusterName = (selectedChoice != null) ? selectedChoice.clusterName : clusteringService.getClusterDisplayName(newClusterId);
 
         document.setTitle(title);
         document.setAuthor(author);

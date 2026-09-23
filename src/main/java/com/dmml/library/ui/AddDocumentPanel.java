@@ -348,7 +348,7 @@ public class AddDocumentPanel extends JPanel {
             }
         } else {
             for (int i = 0; i < 6; i++) {
-                comboFinalCluster.addItem(new ClusterChoiceItem(i, "Cụm #" + (i + 1)));
+                comboFinalCluster.addItem(new ClusterChoiceItem(i, "Chủ Đề #" + (i + 1)));
             }
         }
     }
@@ -473,7 +473,7 @@ public class AddDocumentPanel extends JPanel {
         // Check if user chose a manual cluster or accepts predicted
         ClusterChoiceItem finalChoice = (ClusterChoiceItem) comboFinalCluster.getSelectedItem();
         int finalClusterId = (finalChoice != null) ? finalChoice.clusterId : 0;
-        String finalClusterName = (finalChoice != null) ? finalChoice.clusterName : "Cụm #" + (finalClusterId + 1);
+        String finalClusterName = (finalChoice != null) ? finalChoice.clusterName : clusteringService.getClusterDisplayName(finalClusterId);
 
         Document doc = new Document();
         doc.setTitle(title);

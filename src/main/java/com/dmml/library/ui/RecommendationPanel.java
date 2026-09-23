@@ -215,7 +215,7 @@ public class RecommendationPanel extends JPanel {
 
         String langName = "VI".equalsIgnoreCase(doc.getLanguage()) ? "Tiếng Việt" : "Tiếng Anh";
         lblCurrentDocInfo.setText("Đang đề xuất cho: [" + doc.getTitle() + "] - Tác giả: " + doc.getAuthor() +
-                " - Thuộc cụm: " + (doc.getClusterId() >= 0 ? ("Cụm #" + (doc.getClusterId() + 1)) : "Chưa phân cụm") +
+                " - Chủ đề: " + clusteringService.getClusterDisplayName(doc.getClusterId()) +
                 " (" + langName + ")");
 
         currentRecs = clusteringService.recommendSimilarDocuments(doc.getId(), 10);

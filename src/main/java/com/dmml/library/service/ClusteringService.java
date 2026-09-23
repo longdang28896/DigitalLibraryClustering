@@ -54,7 +54,7 @@ public class ClusteringService {
 
     public TopicMeta resolveAcademicTopic(int clusterId, List<String> topWords) {
         if (clusterId == -1) {
-            return new TopicMeta("⚠️ Nhiễu / Ngoại lai (Outlier)", "Các tài liệu dị biệt");
+            return new TopicMeta("Tài Liệu Dị Biệt / Ngoại Lai", "Các tài liệu dị biệt");
         }
         if (customClusterNames.containsKey(clusterId)) {
             String customName = customClusterNames.get(clusterId);
@@ -67,33 +67,33 @@ public class ClusteringService {
 
         if (allTokens.contains("encrypt") || allTokens.contains("crypt") || allTokens.contains("clipper") || allTokens.contains("kei") || allTokens.contains("chip") || allTokens.contains("escrow")) {
             return new TopicMeta(
-                "🔐 Cụm #" + displayNum + ": An Ninh Mạng & Mật Mã Học",
-                "Mã hóa (Encryption), Khóa bảo mật (Keys), Clipper chip, An toàn thông tin"
+                "An Ninh Mạng & Mật Mã Học",
+                "Mã hóa, Khóa bảo mật, An toàn thông tin"
             );
         } else if (allTokens.contains("space") || allTokens.contains("nasa") || allTokens.contains("orbit") || allTokens.contains("satellit") || allTokens.contains("launch") || allTokens.contains("astronomi")) {
             return new TopicMeta(
-                "🚀 Cụm #" + displayNum + ": Khoa Học Vũ Trụ & Thiên Văn",
-                "Thám hiểm không gian (Space), Quỹ đạo vệ tinh (Orbit), Trạm NASA, Tàu vũ trụ"
+                "Khoa Học Vũ Trụ & Thiên Văn",
+                "Thám hiểm không gian, Vệ tinh, NASA"
             );
         } else if (allTokens.contains("graphic") || allTokens.contains("imag") || allTokens.contains("polygon") || allTokens.contains("render") || allTokens.contains("shading") || allTokens.contains("3d")) {
             return new TopicMeta(
-                "🎨 Cụm #" + displayNum + ": Đồ Họa Máy Tính & Thị Giác Số",
-                "Đồ họa (Graphics), Xử lý hình ảnh (Image), Dựng hình 3D, Lưới đa giác (Polygon)"
+                "Đồ Họa Máy Tính & Thị Giác Số",
+                "Đồ họa máy tính, Xử lý ảnh 3D, Lưới đa giác"
             );
         } else if (allTokens.contains("israel") || allTokens.contains("armenian") || allTokens.contains("arab") || allTokens.contains("jew") || allTokens.contains("peac") || allTokens.contains("polici") || allTokens.contains("turkish")) {
             return new TopicMeta(
-                "🌐 Cụm #" + displayNum + ": Chính Sách Ngoại Giao & Quan Hệ Quốc Tế",
-                "Ngoại giao hòa bình (Peace), Hiệp ước quốc tế, Chính sách chính phủ, Nhân quyền"
+                "Chính Sách Ngoại Giao & Quan Hệ Quốc Tế",
+                "Ngoại giao hòa bình, Hiệp ước, Chính sách"
             );
         } else if (allTokens.contains("basebal") || allTokens.contains("player") || allTokens.contains("game") || allTokens.contains("season") || allTokens.contains("team") || allTokens.contains("pitch")) {
             return new TopicMeta(
-                "⚾ Cụm #" + displayNum + ": Khoa Học Thể Thao & Vận Động",
-                "Giải đấu bóng chày (Baseball), Cầu thủ (Players), Trận đấu (Game), Mùa giải (Season)"
+                "Khoa Học Thể Thao & Vận Động",
+                "Bóng chày, Cầu thủ, Mùa giải thi đấu"
             );
         } else if (allTokens.contains("pitt") || allTokens.contains("bank") || allTokens.contains("gordon") || allTokens.contains("geb") || allTokens.contains("medic") || allTokens.contains("patient") || allTokens.contains("diseas") || allTokens.contains("doctor") || allTokens.contains("skeptic")) {
             return new TopicMeta(
-                "🩺 Cụm #" + displayNum + ": Y Học Lâm Sàng & Dược Phẩm",
-                "Điều trị y khoa (Treatment), Bệnh nhân (Patients), Dược lý kháng sinh, Bệnh học (Disease)"
+                "Y Học Lâm Sàng & Dược Phẩm",
+                "Điều trị y khoa, Bệnh nhân, Kháng sinh"
             );
         } else {
             List<String> cleanWords = new ArrayList<>();
@@ -107,8 +107,8 @@ public class ClusteringService {
             }
             String kwStr = cleanWords.isEmpty() ? (topWords != null ? String.join(", ", topWords) : "") : String.join(", ", cleanWords);
             return new TopicMeta(
-                "📚 Cụm #" + displayNum + ": Chuyên Đề Học Thuật #" + displayNum,
-                "Từ khóa: " + kwStr
+                "Chuyên Đề #" + displayNum,
+                kwStr
             );
         }
     }
@@ -149,7 +149,7 @@ public class ClusteringService {
     }
 
     public String getClusterDisplayName(int clusterId) {
-        if (clusterId < 0) return "Chưa phân cụm";
+        if (clusterId < 0) return "Chưa phân loại";
         if (latestResult != null && latestResult.getClusters() != null) {
             for (ClusterInfo c : latestResult.getClusters()) {
                 if (c.getClusterId() == clusterId) {
@@ -157,7 +157,7 @@ public class ClusteringService {
                 }
             }
         }
-        return "Cụm #" + (clusterId + 1);
+        return "Chủ Đề #" + (clusterId + 1);
     }
 
     private ClusteringService() {
@@ -240,7 +240,7 @@ public class ClusteringService {
 
         for (int cId : sortedClusterIds) {
             List<Document> members = clusterDocMap.get(cId);
-            String name = (cId == -1) ? "Nhiễu / Ngoại lai (Outlier)" : "Cụm #" + (cId + 1);
+            String name = (cId == -1) ? "Tài Liệu Dị Biệt / Ngoại Lai" : "Chủ Đề #" + (cId + 1);
 
             ClusterInfo cInfo = new ClusterInfo(cId, name);
             cInfo.setDocumentCount(members.size());
@@ -342,7 +342,7 @@ public class ClusteringService {
             result.put("clusterName", matchedCluster.getClusterName());
             result.put("topKeywords", matchedCluster.getTopKeywords());
         } else {
-            result.put("clusterName", "Cụm #" + (predictedClusterId + 1));
+            result.put("clusterName", "Chủ Đề #" + (predictedClusterId + 1));
             result.put("topKeywords", Collections.emptyList());
         }
 
@@ -379,7 +379,7 @@ public class ClusteringService {
                 }
             }
             if (!found) {
-                String displayName = newClusterName != null && !newClusterName.isEmpty() ? newClusterName : "Cụm #" + (newClusterId + 1);
+                String displayName = newClusterName != null && !newClusterName.isEmpty() ? newClusterName : "Chủ Đề #" + (newClusterId + 1);
                 ClusterInfo newInfo = new ClusterInfo(newClusterId, displayName);
                 List<Document> docList = new ArrayList<>();
                 docList.add(doc);

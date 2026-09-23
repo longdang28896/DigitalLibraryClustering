@@ -231,7 +231,7 @@ public class DigitalLibraryTests {
         doc = repo.save(doc);
 
         com.dmml.library.service.ClusteringService service = com.dmml.library.service.ClusteringService.getInstance();
-        service.manualReassignCluster(doc.getId(), 3, "Cụm #4: [Y HỌC THỦ CÔNG]");
+        service.manualReassignCluster(doc.getId(), 3, "Y Học Lâm Sàng (Thủ Công)");
 
         com.dmml.library.model.Document updated = repo.findById(doc.getId()).orElse(null);
         assertNotNull(updated);
@@ -245,8 +245,8 @@ public class DigitalLibraryTests {
     @Test
     public void testClusterRenamingAndReset() {
         com.dmml.library.service.ClusteringService service = com.dmml.library.service.ClusteringService.getInstance();
-        service.renameCluster(0, "🔐 Tên Tùy Chỉnh: An Ninh Nâng Cao", "Bảo mật mạng, Khóa mật mã");
-        assertEquals("🔐 Tên Tùy Chỉnh: An Ninh Nâng Cao", service.getClusterDisplayName(0));
+        service.renameCluster(0, "Tên Tùy Chỉnh: An Ninh Nâng Cao", "Bảo mật mạng, Khóa mật mã");
+        assertEquals("Tên Tùy Chỉnh: An Ninh Nâng Cao", service.getClusterDisplayName(0));
 
         service.resetClusterName(0);
         assertTrue(service.getClusterDisplayName(0).contains("An Ninh Mạng & Mật Mã"));
